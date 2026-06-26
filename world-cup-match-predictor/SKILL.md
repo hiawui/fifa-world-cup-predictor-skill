@@ -47,6 +47,8 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
    - For knockout matches, separate "90-minute result" from "to advance" if relevant.
    - Include one or two likely scorelines.
    - Keep likely scorelines consistent with the probability table. If a draw is listed as a likely score, draw probability should usually be close to the top outcome unless you explain why it is only a secondary path.
+   - Cross-check the headline pick, probability ranges, likely scorelines, scoring table, rationale, key assumption, and failure path before finalizing. They must tell the same story. If the highest probability outcome is not the stated pick, either revise the pick or revise the probabilities and scorelines.
+   - If two outcomes are close enough that the prose says "倾向平局", "小优", "toss-up", or similar, make the probability ranges reflect that closeness and order likely scorelines accordingly.
    - In group finales, cap confidence when a stronger team has already advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without confirmed lineup and motivation evidence. If the favorite has already qualified and rotates most of its defensive spine or midfield screen, treat defensive coordination as a first-order risk and usually keep its win probability in the slight-favorite or toss-up band unless confirmed attacking urgency offsets it.
    - If both teams can benefit from a draw, raise draw probability meaningfully or explain why match dynamics still point away from it. If both teams can accept a draw and both lineups or shapes are conservative, make 0-0 a live scoreline rather than defaulting to 1-1.
    - Include category scores and a total score comparison for both teams in every prediction, unless evidence is too sparse to score responsibly; if scoring is withheld, state why.
@@ -54,6 +56,7 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
 
 5. Explain the judgment.
    - Lead with the prediction.
+   - Make the first-line judgment match the probability table: the named winner should normally have the highest win probability, and a stated draw lean should normally have draw as the highest or co-highest outcome.
    - Present the strongest evidence first.
    - Explicitly mention the main way the prediction could fail.
    - Avoid overclaiming from one metric or one match.
@@ -67,7 +70,14 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
    - Put the same structured prediction you would give the user into the file, including pick, probability ranges, likely scorelines, category scores, total scores, key assumptions, failure path, and source links.
    - If the user is Chinese or asks in Chinese, write the saved markdown content in Chinese, including headings, labels, rationale, assumptions, and scoring table. Keep filenames ASCII-safe even when the markdown content is Chinese.
 
-7. Backtest saved predictions when requested.
+7. Run post-prediction consistency review.
+   - After writing prediction markdown files, use subagents when available to review the saved files for internal consistency before giving the final answer.
+   - Split reviews into small independent batches, usually one or two match files per subagent, and make each subagent read-only. Ask it to check whether the headline pick, probability leader, likely scoreline order, scoring table totals, rationale, key assumption, and failure path agree.
+   - Ask each subagent to report "consistent" or "inconsistent", cite the exact conflicting lines or phrases, and suggest the smallest safe correction. Do not ask subagents to edit prediction files unless you explicitly assign a disjoint write scope.
+   - While subagents run, do non-overlapping work such as checking skill sync or source diffs. When results return, integrate only the corrections that improve consistency and re-check the edited files.
+   - If subagents are unavailable, do the same consistency review manually before responding. Do not skip this step.
+
+8. Backtest saved predictions when requested.
    - For each completed match, compare the primary 90-minute pick, predicted probability, likely scorelines, and actual result.
    - Track three levels separately: primary outcome hit, likely-score hit, and calibration quality.
    - Do not count live or unfinished matches as wins or losses.

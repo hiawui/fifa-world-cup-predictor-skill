@@ -156,6 +156,9 @@ Use the total score as a decision aid, not a substitute for narrative reasoning.
 - Using stale injury or squad information.
 - Naming confirmed-lineup-dependent conclusions before checking whether lineups are available.
 - Giving exact-looking probabilities when evidence only supports broad ranges.
+- Stating one outcome as the pick while assigning a different outcome the highest probability.
+- Listing likely scorelines in an order that contradicts the stated pick or probability table.
+- Giving equal or near-equal total scores while writing a confident one-sided prediction without explaining the override.
 - Mentioning a major draw or rotation risk but leaving probabilities unchanged.
 - Mixing "will win the match" with "will advance" without clarification.
 - Giving gambling certainty or encouraging staking decisions.
@@ -223,6 +226,12 @@ Before answering:
 - Include citations for schedule and key evidence.
 - Include probability ranges, not false precision.
 - Check that likely scorelines and probability ranges are internally consistent.
+- Check that the headline judgment, probability leader, likely scoreline order, scoring table totals, rationale, key assumption, and failure path are internally consistent.
+- If the headline says "draw lean", draw should be the top or co-top probability range; if a team has the highest probability, the headline should say that team is the slight/clear favorite and name draw as the risk.
+- If the scoring table is tied or nearly tied, avoid a strong favorite label unless the rationale clearly explains why incentives, lineups, or matchup override the total score.
+- Re-read the final answer and saved markdown once before persisting; fix contradictions before writing or responding.
+- After persisting prediction files, run a read-only subagent consistency review when subagents are available. Use one or two files per subagent and ask for exact contradictions plus minimal corrections.
+- Integrate subagent findings before final response. If any prediction file changes after review, re-check the changed lines and ensure the saved markdown, final answer summary, and probability tables still match.
 - Check group incentives and rotation risk for group-stage matches.
 - Include category scores and a total score comparison when technical detail is requested.
 - Name the main counterargument.
