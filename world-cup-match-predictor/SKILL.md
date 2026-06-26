@@ -38,7 +38,7 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
    - Evaluate tactical matchup: pressing resistance, set pieces, transition defense, aerial duels, pace, goalkeeper reliability, and whether either side must chase the game.
    - Look specifically for defensive error tendency and control after taking the lead, because these often decide whether a favorite actually converts superiority into a win.
    - Account for context: travel, rest days, venue, weather if relevant, injuries/suspensions, lineup rotation, knockout incentives, goal-difference incentives, and market movement.
-   - Promote any major counterargument into the probability estimate. Do not mention rotation, low motivation, or draw incentives only as prose if they materially change the result.
+   - Promote any major counterargument into the probability estimate. Do not mention rotation, low motivation, or draw incentives only as prose if they materially change the result. Do not equate already eliminated with unmotivated: check whether pride, young creators, coach pressure, or showcase incentives can preserve attacking urgency.
 
 4. Estimate outcomes.
    - Give a clear pick for 90-minute result unless the user asks for qualification/advancement.
@@ -46,8 +46,8 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
    - For knockout matches, separate "90-minute result" from "to advance" if relevant.
    - Include one or two likely scorelines.
    - Keep likely scorelines consistent with the probability table. If a draw is listed as a likely score, draw probability should usually be close to the top outcome unless you explain why it is only a secondary path.
-   - In group finales, cap confidence when a stronger team has already advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without confirmed lineup and motivation evidence.
-   - If both teams can benefit from a draw, raise draw probability meaningfully or explain why match dynamics still point away from it.
+   - In group finales, cap confidence when a stronger team has already advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without confirmed lineup and motivation evidence. If the favorite has already qualified and rotates most of its defensive spine or midfield screen, treat defensive coordination as a first-order risk and usually keep its win probability in the slight-favorite or toss-up band unless confirmed attacking urgency offsets it.
+   - If both teams can benefit from a draw, raise draw probability meaningfully or explain why match dynamics still point away from it. If both teams can accept a draw and both lineups or shapes are conservative, make 0-0 a live scoreline rather than defaulting to 1-1.
    - Include category scores and a total score comparison for both teams when the evidence supports it or the user asks for technical analysis.
 
 5. Explain the judgment.
@@ -76,6 +76,10 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
 - Cite sources with links in the final answer.
 - If sources disagree, state the discrepancy and use the more authoritative or newer source.
 - Treat betting odds as a market signal, not proof.
+- If Polymarket data is available, treat it as a market signal with the same caution: prefer liquid, actively traded markets; use `bestBid`, `bestAsk`, `lastTradePrice`, `volume`, and `liquidity` over a raw midpoint; and discount thin or stale books.
+- For 2026 World Cup use, prefer match-specific markets when they exist. If only tournament winner markets are available, use them as a broad strength check, not a substitute for match-level evidence.
+- If a Polymarket search endpoint returns noisy results, filter the returned market list locally by question, slug, and category instead of trusting search alone.
+- Do not overweight Polymarket over confirmed lineups, standings, injuries, or rotation reports. A sharp price move should trigger a re-check of those inputs, not replace them.
 - Treat FIFA ranking as a baseline only; adjust for current form, injuries, matchup, and tournament context.
 - Treat coach quality, lineup construction, and bench usage as first-class evidence, not afterthoughts.
 - Treat this-tournament performance as stronger evidence than pre-tournament reputation when both exist.
