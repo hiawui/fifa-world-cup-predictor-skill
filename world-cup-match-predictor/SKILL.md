@@ -13,6 +13,7 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
 
 1. Confirm the fixture.
    - Resolve relative dates against the user's timezone and current date.
+   - Standardize all kickoff times, saved prediction timestamps, and date references to Beijing time (UTC+08:00), regardless of source timezone. When a source uses local venue time or UTC, convert it to Beijing time and state the conversion when it matters.
    - Verify competition, venue, kickoff time, group/round, standings context, and whether the match is upcoming, live, or complete.
    - Confirm the match belongs to the 2026 FIFA World Cup final tournament; if not, do not use this skill.
    - If the user gives only a local time, state the assumed timezone.
@@ -48,7 +49,8 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
    - Keep likely scorelines consistent with the probability table. If a draw is listed as a likely score, draw probability should usually be close to the top outcome unless you explain why it is only a secondary path.
    - In group finales, cap confidence when a stronger team has already advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without confirmed lineup and motivation evidence. If the favorite has already qualified and rotates most of its defensive spine or midfield screen, treat defensive coordination as a first-order risk and usually keep its win probability in the slight-favorite or toss-up band unless confirmed attacking urgency offsets it.
    - If both teams can benefit from a draw, raise draw probability meaningfully or explain why match dynamics still point away from it. If both teams can accept a draw and both lineups or shapes are conservative, make 0-0 a live scoreline rather than defaulting to 1-1.
-   - Include category scores and a total score comparison for both teams when the evidence supports it or the user asks for technical analysis.
+   - Include category scores and a total score comparison for both teams in every prediction, unless evidence is too sparse to score responsibly; if scoring is withheld, state why.
+   - Use a clear 100-point rubric by default: squad quality 30, recent/tournament performance 20, tactical matchup 25, coaching/game management 15, and context/motivation/environment 10.
 
 5. Explain the judgment.
    - Lead with the prediction.
@@ -60,9 +62,10 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
 6. Persist the prediction.
    - Write the final prediction to `pred/` as a markdown file for every match you analyze.
    - Use a filename shaped like `pred/YYYY-MM-DD_HHMM_TeamA-vs-TeamB.md`.
-   - Base the timestamp on the match kickoff time in the relevant local timezone when available; otherwise use the best-supported date/time you have.
+   - Base the timestamp on the match kickoff time converted to Beijing time; otherwise use the best-supported date/time you have and state the timezone uncertainty.
    - Normalize team names into ASCII-safe slugs for the filename.
-   - Put the same structured prediction you would give the user into the file, including score, probability ranges, rubric scores when used, key assumptions, failure path, and source links.
+   - Put the same structured prediction you would give the user into the file, including pick, probability ranges, likely scorelines, category scores, total scores, key assumptions, failure path, and source links.
+   - If the user is Chinese or asks in Chinese, write the saved markdown content in Chinese, including headings, labels, rationale, assumptions, and scoring table. Keep filenames ASCII-safe even when the markdown content is Chinese.
 
 7. Backtest saved predictions when requested.
    - For each completed match, compare the primary 90-minute pick, predicted probability, likely scorelines, and actual result.
@@ -88,18 +91,19 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
 
 ## Output Shape
 
-For Chinese users, answer in Chinese unless asked otherwise. Use this compact structure:
+For Chinese users, answer in Chinese unless asked otherwise. Saved markdown files for Chinese predictions must also be written in Chinese. Use this compact structure:
 
 ```text
 我判断：[球队] 更可能赢，倾向比分 [x-y] 或 [x-y]。
 90 分钟粗略概率：[A胜] xx%-xx%，平局 xx%-xx%，[B胜] xx%-xx%。
 
-如证据足够或用户要求技术分析，加入评分对比：
-1. [项目A]：[A队] x/x， [B队] x/x
-2. [项目B]：[A队] x/x， [B队] x/x
-3. [项目C]：[A队] x/x， [B队] x/x
-4. [项目D]：[A队] x/x， [B队] x/x
-总分：[A队] xx/100， [B队] xx/100
+评分对比：
+1. 阵容实力：[A队] x/30，[B队] x/30
+2. 近期/赛事表现：[A队] x/20，[B队] x/20
+3. 战术对位：[A队] x/25，[B队] x/25
+4. 教练与比赛管理：[A队] x/15，[B队] x/15
+5. 赛程/战意/环境：[A队] x/10，[B队] x/10
+综合评分：[A队] xx/100，[B队] xx/100
 
 依据：
 1. [最强证据]
@@ -114,4 +118,4 @@ For Chinese users, answer in Chinese unless asked otherwise. Use this compact st
 
 For deeper requests, read `references/prediction-framework.md`.
 
-When writing files into `pred/`, keep the content concise and structured so each file is easy to scan later.
+When writing files into `pred/`, keep the content concise and structured so each file is easy to scan later. For Chinese predictions, use Chinese markdown headings such as `## 评分`, `## 依据`, `## 关键假设`, `## 预测失效路径`, and `## 来源`.
