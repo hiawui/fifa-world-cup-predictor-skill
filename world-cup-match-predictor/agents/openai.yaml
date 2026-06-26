@@ -1,0 +1,4 @@
+interface:
+  display_name: "World Cup Match Predictor"
+  short_description: "2026 World Cup match forecasts"
+  default_prompt: "Use $world-cup-match-predictor to predict or backtest a 2026 FIFA World Cup final-tournament match with evidence and uncertainty."
