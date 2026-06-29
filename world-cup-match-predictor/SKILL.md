@@ -40,11 +40,20 @@ Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match
    - Look specifically for defensive error tendency and control after taking the lead, because these often decide whether a favorite actually converts superiority into a win.
    - Account for context: travel, rest days, venue, weather if relevant, injuries/suspensions, lineup rotation, knockout incentives, goal-difference incentives, and market movement.
    - Promote any major counterargument into the probability estimate. Do not mention rotation, low motivation, or draw incentives only as prose if they materially change the result. Do not equate already eliminated with unmotivated: check whether pride, young creators, coach pressure, or showcase incentives can preserve attacking urgency.
+   - **Lineup strength / rotation uncertainty (mandatory):** For every prediction, explicitly state the expected starting-lineup strength for each side relative to their best XI. Estimate whether rotation, rest, or injury degrades a team's cohesion or firepower, and write the directional impact on win probability (e.g., "rotation of 4+ starters in the back line likely costs ~5-8% off their baseline win rate"). If lineup information is unavailable, state the uncertainty and bracket the prediction accordingly. This assessment must appear in the saved markdown file under `## 首发强度/轮换不确定性`.
+   - **Knockout-stage dynamics:** When the match is a knockout tie (Round of 32 onward), apply the following additional analysis:
+     - The primary prediction remains 90-minute win/draw/loss. A draw at 90 minutes is a real, bettable outcome in knockout matches—do not suppress it just because the tie must eventually produce a winner.
+     - The weaker side's rational strategy is often to defend deep and target extra time or penalties. This raises the 90-minute draw probability significantly; in many knockout matches it should be 28%-35% or higher.
+     - Assess extra-time and penalty capability as supplementary information: goalkeeper penalty-saving record, designated takers, squad fitness/depth for 120 minutes, and coach substitution patterns in tournament knockouts.
+     - Elevate the weight of psychological evidence: how each team performs when trailing, when protecting a lead, and under elimination pressure. Historical knockout exits or comebacks are relevant here.
+     - Fatigue accumulation matters more as the bracket progresses; compare rest days, minutes played by key players in prior rounds, and squad rotation capacity.
+     - After the main 90-minute prediction, optionally provide "to advance" probabilities as supplementary context, but never let this override or confuse the 90-minute pick.
 
 4. Estimate outcomes.
    - Give a clear pick for 90-minute result unless the user asks for qualification/advancement.
    - Include uncertainty with approximate probability ranges for win/draw/loss.
-   - For knockout matches, separate "90-minute result" from "to advance" if relevant.
+   - Keep probability range widths informative: typical interval width should be 8-12 percentage points (e.g., "35%-45%"). If an interval exceeds 15 points, explicitly state why evidence is insufficient to narrow it. Never use intervals wider than 20 points—if uncertainty is that high, state the limitation and make the pick conditional rather than hiding it in a vague range.
+   - For knockout matches, always separate "90-minute result" from "to advance" probabilities. The 90-minute result (including draw) is the primary prediction for betting purposes. Provide "to advance" only as supplementary context. Include an explicit extra-time/penalty edge assessment when 90-minute draw probability exceeds 25%.
    - Include one or two likely scorelines.
    - Keep likely scorelines consistent with the probability table. If a draw is listed as a likely score, draw probability should usually be close to the top outcome unless you explain why it is only a secondary path.
    - Cross-check the headline pick, probability ranges, likely scorelines, scoring table, rationale, key assumption, and failure path before finalizing. They must tell the same story. If the highest probability outcome is not the stated pick, either revise the pick or revise the probabilities and scorelines.
@@ -115,6 +124,11 @@ For Chinese users, answer in Chinese unless asked otherwise. Saved markdown file
 5. 赛程/战意/环境：[A队] x/10，[B队] x/10
 综合评分：[A队] xx/100，[B队] xx/100
 
+首发强度/轮换不确定性：
+- [A队]：[主力程度描述，如"预计最强阵/轮换2-3人/半替补阵"]，对胜率影响 [方向和幅度]
+- [B队]：[同上]
+- 信息确定度：[已确认首发 / 可靠报道 / 纯推测]
+
 依据：
 1. [最强证据]
 2. [第二证据]
@@ -126,6 +140,15 @@ For Chinese users, answer in Chinese unless asked otherwise. Saved markdown file
 结论：[一句话总结 pick，并说明最大不确定性。]
 ```
 
+For knockout matches, optionally append supplementary context after the main block:
+
+```text
+淘汰赛附加（补充信息，非主预测）：
+- 90 分钟平局概率：xx%
+- 加时/点球优势方：[球队]，理由：[门将扑点/体力/教练经验]
+- 晋级概率：[A队] xx%，[B队] xx%
+```
+
 For deeper requests, read `references/prediction-framework.md`.
 
-When writing files into `pred/`, keep the content concise and structured so each file is easy to scan later. For Chinese predictions, use Chinese markdown headings such as `## 评分`, `## 依据`, `## 关键假设`, `## 预测失效路径`, and `## 来源`.
+When writing files into `pred/`, keep the content concise and structured so each file is easy to scan later. For Chinese predictions, use Chinese markdown headings such as `## 评分`, `## 首发强度/轮换不确定性`, `## 依据`, `## 关键假设`, `## 预测失效路径`, `## 来源`, and for knockout matches also `## 淘汰赛附加`.
