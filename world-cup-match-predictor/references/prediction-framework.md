@@ -1,237 +1,172 @@
 # Prediction Framework
 
+Use this reference for deeper or high-stakes match calls. `SKILL.md` is the operating workflow; this file is the calibration and checklist layer.
+
+## Evidence Ledger
+
+Build the ledger before probabilities:
+
+1. Factors raising Team A 90-minute win probability.
+2. Factors raising the draw probability.
+3. Factors raising Team B 90-minute win probability.
+4. Factors affecting only advancement, not the 90-minute result.
+
+Then convert each material factor into a directional probability adjustment. If a fact is worth mentioning but does not move win/draw/loss, label it as context.
+
 ## Evidence Priority
 
-1. Official 2026 FIFA World Cup match facts: schedule, venue, kickoff, group/round, standings, disciplinary status, final result for backtests.
+1. Official match facts: schedule, venue, kickoff, group/round, standings, disciplinary status, final result for backtests.
 2. Incentives and match state: must-win, draw-enough, already-qualified, eliminated, goal-difference needs, likely opponent-selection incentives.
 3. Availability: confirmed lineups, injuries, suspensions, late fitness news, coach comments, credible rotation reports.
-4. Team quality: Elo/SPI-equivalent ratings, FIFA ranking, squad market value, club level of starters, bench depth.
-5. Performance: recent results adjusted for opponent strength, expected goals if available, goals for/against, clean sheets, set-piece output.
+4. Team quality: Elo/SPI-style ratings, FIFA ranking, squad market value, club level of starters, bench depth.
+5. Current performance: this-tournament results, opponent-adjusted form, xG if available, goals for/against, clean sheets, set-piece output.
 6. Context: rest days, travel, climate, home-region advantage, rotation incentives.
-7. Market signal: bookmaker odds or prediction markets, especially when many books agree or odds move sharply.
-
-## Polymarket Usage
-
-Use Polymarket only as a market-signal input. It can help calibrate the model, but it is not an official source for fixtures, lineups, injuries, standings, or final results.
-
-When available, query active open markets from Polymarket's public Gamma API and capture:
-
-- question and slug
-- market id
-- outcomes
-- outcomePrices or lastTradePrice
-- bestBid and bestAsk
-- volume and liquidity
-- active and closed status
-- update timestamp when available
-
-Prefer match-specific markets over tournament-level markets. For a World Cup match prediction:
-
-- A liquid 90-minute win/draw/win or advancement market can materially inform the market-signal category.
-- A team-to-win-the-tournament market is only a broad team-strength and public-pricing check.
-- Do not infer a single-match win probability directly from a championship market without bracket path, opponent, rotation, and match-state adjustments.
-
-Data quality checks:
-
-- Prefer markets with meaningful liquidity, recent trading, and narrow bid/ask spreads.
-- Treat low-liquidity, one-sided, stale, or wide-spread markets as weak evidence.
-- Use `bestBid`/`bestAsk` and `lastTradePrice` together; a last trade far outside the current spread may be stale.
-- Convert prices into rough probabilities only after checking the market resolution rules.
-- Confirm whether the market is for 90-minute result, advancement, group qualification, or tournament winner before using it.
-
-Search and filtering:
-
-- Do not trust Polymarket search results blindly; broad search terms can return unrelated markets.
-- If search is noisy, pull a bounded market/event list and locally filter `question`, `slug`, and `category` for team names, "FIFA", "World Cup", and "soccer".
-- If no match-specific market is found, state that limitation and either use the tournament-winner market lightly or omit Polymarket from the match forecast.
-
-Query hygiene:
-
-- Prefer one bounded list query per object type (`events` or `markets`) and filter locally instead of firing many broad search queries.
-- Normalize team names and aliases before filtering, including common short forms and spelling variants.
-- Read only the fields you need for calibration; prioritize `question`, `slug`, `category`, `bestBid`, `bestAsk`, `lastTradePrice`, `volume`, `liquidity`, and timestamps.
-- If the result set is large, filter first by football-related keywords, then by exact teams or market type, then by liquidity and recency.
-- If an API call returns unrelated or stale-looking results, stop widening the search and fall back to other evidence sources.
-
-Calibration rules:
-
-- If a liquid Polymarket match market strongly disagrees with the model, first re-check lineups, injuries, incentives, weather, and market rules.
-- If the disagreement remains unexplained, widen the probability band rather than blindly adopting the market.
-- A sharp late price move is a trigger for evidence review, especially near lineup release or major injury news.
-- Keep Polymarket inside the market-signal slice of the rubric unless it reveals or strongly implies new information that can be independently verified.
-
-## Suggested Weighting
-
-Use this as a thinking aid, not a rigid formula:
-
-- Squad quality and depth: 20%
-- This-tournament performance or recent form: 20%
-- Availability and lineup certainty: 15%
-- Tactical matchup: 20%
-- Coach and in-game management: 10%
-- Reliability under match states: 10%
-- Context and market signal: 5%
-
-When the tournament is underway, this-tournament performance should usually outweigh older friendly or qualifying form. When the tournament has not started, use opponent-adjusted recent form instead.
-
-Adjust weights when a factor is unusually decisive. For example, confirmed absence of a first-choice goalkeeper or striker can outweigh small ranking differences.
-
-For group-stage finales, use an incentive-aware weighting before the normal rubric:
-
-- Squad quality and depth: 18%
-- This-tournament performance: 20%
-- Availability and lineup certainty: 15%
-- Tactical matchup: 17%
-- Group incentives and rotation risk: 15%
-- Reliability under match states: 10%
-- Market signal: 5%
-
-If a team is already qualified, eliminated, or only needs a draw, the incentive category can dominate small squad-quality edges. Do not let a stronger reputation override a clear, current tournament incentive without evidence.
-
-## Probability Calibration
-
-- Heavy favorite: 65-75% win probability in 90 minutes.
-- Clear favorite: 55-65%.
-- Slight favorite: 45-55%.
-- Toss-up: no side above 45%.
-- Underdog with real upset path: 20-35%.
-- Very large mismatch: favorite may exceed 75%, but explain tournament volatility.
-
-Keep draw probability visible in football predictions. Even a superior team may have only a 50-60% 90-minute win chance when the underdog can defend deep.
-
-Use these calibration guardrails:
-
-- Already-qualified favorite with probable rotation versus motivated opponent: reduce favorite win probability by roughly 5-12 points unless confirmed lineups contradict rotation. If rotation removes most of the defensive spine (goalkeeper, center-backs, holding midfielder, or fullback pair), reduce again or widen the opponent win range because coordination errors can outweigh bench talent.
-- Already-qualified favorite using a heavily rotated XI against an eliminated opponent with credible creators or transition pace should rarely sit above 35-38% in 90-minute win probability without strong evidence of urgency and defensive stability.
-- Already-qualified favorite with strong lineup confirmed: still check whether it needs the win; avoid exceeding 60% if the opponent has a must-win path and enough attacking quality.
-- Both teams benefit from a draw or one team only needs a draw: draw probability usually starts near 30%, then adjust for tactical mismatch, defensive reliability, and market signal. If both sides use conservative shapes or five-defender structures and neither needs early goal difference, 0-0 should be a primary scoreline candidate alongside or ahead of 1-1.
-- If the written risk says "rotation could make this close" or "a draw is natural", the probabilities must reflect that risk. Otherwise the forecast is internally inconsistent.
-- Do not list a draw as one of two likely scores while assigning a very low draw probability. The scoreline list and probability table should tell the same story.
+7. Market signal: bookmaker odds or prediction markets, especially liquid markets or sharp late moves.
 
 ## Scoring Rubric
 
-Use a 100-point comparison when the user wants a more technical call or when the matchup is close.
+Default 100-point rubric, aligned with `SKILL.md`:
 
-Suggested categories:
+- Squad quality: 30
+- Recent/tournament performance: 20
+- Tactical matchup: 25
+- Coaching/game management: 15
+- Context/motivation/environment: 10
 
-- Squad quality and depth: 20
-- This-tournament performance / recent form: 20
-- Availability and lineup certainty: 15
-- Tactical matchup: 20
-- Coach quality and in-game management: 10
-- Reliability under match states: 10
-- Context and market signal: 5
+Use the score as a sanity check, not a formula. A narrow score edge should usually map to a narrow probability edge. If the score and pick diverge, explain the override.
 
-When the tournament is already underway, split form into:
+Optional sub-factors:
 
-- Pre-tournament form
-- This-tournament form
+- Squad quality: starting XI, first-impact substitutes, positional cover, goalkeeper and center-back reliability.
+- Tactical matchup: low-block breaking, chance conversion, set pieces, transition defense, aerial duels, pressing resistance.
+- Coaching/game management: default shape, pressing triggers, substitution timing, rotation choices, penalty/extra-time handling.
+- Match-state reliability: defensive error tendency, control after scoring first, ability to protect a draw, late-game concentration.
 
-Give this-tournament form extra weight in backtests and live forecasts because it captures the actual competitive environment.
+For group-stage finales, make incentives visible in the score. If useful, move 5-10 points of weight from squad/tactics into context/motivation to reflect qualification status, draw incentives, rotation, cards, and minute management.
 
-For group-stage finales, replace "Context and market signal" with two categories when useful:
+## Probability Calibration
 
-- Group incentives and rotation risk: 15
-- Market signal: 5
+Use these 90-minute probability bands:
 
-Keep total score at 100 by reducing squad quality to 18 and tactical matchup to 17. This forces qualification status, likely rotation, and draw incentives into the score instead of burying them in commentary.
+- 70%+: strong favorite; explain why the draw path is unusually weak.
+- 65%-70%: clear favorite; acknowledge rotation, knockout, or low-block risk if present.
+- 58%-65%: moderate favorite; do not write the rationale like domination.
+- 50%-58%: slight edge or toss-up; scorelines and language should stay cautious.
+- No side above 50%: draw or true toss-up may be a first-order outcome.
 
-Optional sub-factors to split out when they matter:
+Draw guardrails:
 
-- Tactical matchup: low-block breaking, chance conversion, set-piece edge, transition defense, aerial duels.
-- Reliability under match states: defensive error tendency, control after scoring first, ability to protect a draw, late-game concentration.
-- Coach quality and in-game management: substitution timing, shape changes, rotation choices, penalty/extra-time handling.
-- Squad quality and depth: starting XI, first-impact substitutes, positional cover, goalkeeper and center-back reliability.
+- Football draw probability must stay visible even when one side is stronger.
+- Do not list a draw as a likely scoreline while assigning it a very low probability unless explicitly explaining it as a secondary path.
+- If both teams benefit from a draw, start near 30% and adjust for tactics, defensive reliability, and market signal.
+- If both teams can accept a draw and lineups/shapes are conservative, make 0-0 a live scoreline, not just 1-1.
 
-Score each team in every category, then sum to a total. Keep the scale consistent within a single analysis. If one factor is decisive, explain why the category weight should be effectively higher than the default.
+Favorite guardrails:
 
-Use the total score as a decision aid, not a substitute for narrative reasoning. A narrow score edge should usually map to a narrow win probability edge.
+- Already-qualified favorite with probable rotation versus a motivated opponent: reduce 90-minute win probability by roughly 5-12 points unless confirmed lineups contradict rotation.
+- If rotation removes the defensive spine (goalkeeper, center-backs, holding midfielder, fullback pair), downgrade defensive reliability again or widen opponent/draw ranges.
+- Already-qualified favorite with strong lineup still needs motivation evidence before exceeding 60% against an opponent with a must-win path and enough attacking quality.
+- If prose says "rotation could make this close" or "a draw is natural", the table must reflect that risk.
+
+## Knockout Calibration
+
+Keep 90-minute result separate from advancement.
+
+- Weaker sides often rationally defend deep and target extra time/penalties.
+- Raise 90-minute draw into the 28%-35% range when the underdog has credible low-block discipline, strong goalkeeper, set-piece threat, or penalty edge.
+- Keep draw closer to 24%-29% when the favorite creates early chances, the underdog has repeated defensive errors, both sides play high-transition football, or the underdog must attack.
+- If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
+- Add advancement context only after the 90-minute table. Mention goalkeeper penalty record, designated takers, rest days, prior minutes, and squad depth for 120 minutes when relevant.
+
+## Matchup Checklists
+
+Favorite vs underdog:
+
+- Can the favorite break a low block without overcommitting?
+- Does the underdog have counter pace, set-piece threat, or aerial advantage?
+- Are the favorite's fullbacks vulnerable behind the line?
+- How important is the first goal? Can the underdog keep 0-0 deep?
+- Can the favorite's bench change the game after 60 minutes?
+- Does the underdog have more than one viable game state?
+
+Two strong teams:
+
+- Separate midfield control from chance creation.
+- Compare goalkeeper and center-back error risk.
+- Check whether either coach is likely to rotate or protect players.
+- Treat extra time and penalties separately from 90-minute superiority.
+
+Group-stage finale:
+
+- State current points, goal difference, and qualification route.
+- Identify who needs a win, who can accept a draw, who is already through, and who is eliminated.
+- Check rotation, card protection, minute management, and injury avoidance.
+- If a weaker team must open up, raise both its upset path and the favorite's transition path.
+- Do not downgrade eliminated teams automatically; assess pride, young-player incentives, coach pressure, and set-piece/transition weapons.
+- If final lineups are not confirmed, widen ranges and make the pick conditional.
+
+## Polymarket Usage
+
+Use Polymarket only as market signal. It is not a source for fixtures, lineups, injuries, standings, or final results.
+
+When available, capture:
+
+- question, slug, market id, outcomes
+- bestBid, bestAsk, lastTradePrice or outcomePrices
+- volume, liquidity, active/closed status, update timestamp when available
+
+Use hierarchy:
+
+1. Liquid match-specific 90-minute markets.
+2. Liquid advancement markets, only for "to advance" context.
+3. Tournament-winner markets, only as broad strength/public-pricing checks.
+
+Data quality checks:
+
+- Prefer meaningful liquidity, recent trading, and narrow spreads.
+- Treat low-liquidity, stale, wide-spread, or one-sided markets as weak evidence.
+- Check market resolution rules before converting prices into probabilities.
+- If a liquid market strongly disagrees with the model, re-check lineups, injuries, incentives, weather, and rules first. If still unexplained, widen the probability band rather than blindly adopting the market.
+
+Search hygiene:
+
+- If search is noisy, pull a bounded market/event list and locally filter `question`, `slug`, and `category`.
+- Filter first by football keywords, then exact team names/aliases, then market type, liquidity, and recency.
+- If no match-specific market exists, state that limitation or omit Polymarket.
 
 ## Red Flags
 
 - Predicting from FIFA ranking alone.
-- Ignoring whether the match is group stage or knockout.
-- Ignoring current group standings, qualification incentives, or rotation incentives.
-- Treating a single blowout as full proof of team level.
-- Using stale injury or squad information.
-- Naming confirmed-lineup-dependent conclusions before checking whether lineups are available.
-- Giving exact-looking probabilities when evidence only supports broad ranges.
-- Stating one outcome as the pick while assigning a different outcome the highest probability.
-- Listing likely scorelines in an order that contradicts the stated pick or probability table.
-- Giving equal or near-equal total scores while writing a confident one-sided prediction without explaining the override.
-- Mentioning a major draw or rotation risk but leaving probabilities unchanged.
-- Mixing "will win the match" with "will advance" without clarification.
-- Giving gambling certainty or encouraging staking decisions.
+- Ignoring group/knockout format, standings, incentives, or rotation.
+- Treating one blowout as full proof of team level.
+- Using stale injury or lineup information.
+- Making confirmed-lineup-dependent claims before lineups are available.
+- Giving exact-looking probabilities when evidence supports only ranges.
+- Pick, probability leader, scoreline order, scoring table, rationale, key assumption, or failure path contradict each other.
+- Equal or near-equal total scores paired with confident one-sided language without an override.
+- Major draw/rotation risk appears in prose but not in probabilities.
+- Mixing "win in 90 minutes" with "advance".
+- Presenting gambling certainty or staking advice.
 
-## Matchup Notes
+## Backtesting
 
-When analyzing a favorite versus underdog:
-
-- Ask whether the favorite can break a low block.
-- Check set-piece quality on both sides.
-- Look for transition risk if the favorite uses high fullbacks.
-- Consider whether the underdog has pace for counters.
-- Give special weight to first-goal scenarios; underdogs often need 0-0 deep into the match.
-- Check whether the favorite's bench can change the game after 60 minutes or whether the underdog has only one realistic game state.
-
-## Squad And Coach Checklist
-
-When evidence is available, always cover:
-
-- First-choice goalkeeper quality and reliability.
-- Center-back pairing and whether either defender is vulnerable in space.
-- Fullback width and whether it can be exposed behind the line.
-- Midfield ball progression versus defensive cover.
-- Primary scorer and creator, plus the best bench attacker.
-- Best substitute defender or midfielder if the match becomes stateful.
-- Coach's default shape, pressing trigger, and substitution habits.
-- Coach history in tournament knockout pressure or must-not-lose games.
-- Whether head-to-head history matches the current personnel and coach, or is too stale to matter.
-
-When analyzing two strong teams:
-
-- Separate control of midfield from chance creation.
-- Compare goalkeeper and center-back error rates where evidence exists.
-- Look at whether either coach is likely to rotate or protect players.
-- Treat knockout extra time and penalties separately.
-
-## Group-Stage Finale Checklist
-
-Before making the pick:
-
-- State each team's current points, goal difference, and qualification route when available.
-- Identify whether each team needs a win, can accept a draw, is already through, or is already eliminated.
-- Check whether the stronger team has reason to rotate, protect cards, manage minutes, or avoid injuries. If it rotates the goalkeeper-center-back-holding-midfielder spine, explicitly downgrade defensive reliability even if the bench attackers are strong.
-- Check whether a weaker team must open up; that can raise both upset chance and favorite transition chances. If the weaker or eliminated team does not need standings points, still assess pride, young-star showcase incentives, coach pressure, and set-piece or transition weapons before downgrading motivation.
-- Separate "more talented" from "more likely to play a full-strength, high-urgency match."
-- If final lineups are not confirmed, make the pick conditional and keep probability bands wider.
-
-## Backtesting Saved Predictions
-
-When reviewing predictions in `pred/`:
+For saved predictions in `pred/`:
 
 - Count only completed matches.
-- Report primary-outcome hit rate separately from scoreline hit rate.
-- Treat an alternate scoreline hit as useful signal, but do not mark the primary pick correct if the win/draw/loss was wrong.
-- Review calibration: a 53% favorite losing is not automatically a bad forecast, but a pattern of misses around the same hidden factor is a skill problem.
-- For each miss, identify the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, or stale evidence.
-- Feed repeated errors back into future predictions as explicit probability adjustments.
+- Verify final score from official/match-center sources and read at least one match report or live text.
+- Track primary 90-minute outcome, likely-score hit, and calibration quality separately.
+- A 53% favorite losing is not automatically a bad forecast; repeated misses from the same hidden factor are the problem.
+- Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
+- Convert repeated errors into explicit future probability adjustments.
 
-## Final Answer Checks
+## Final Consistency Check
 
-Before answering:
+Before saving or answering:
 
-- Confirm date/time in absolute terms.
-- State whether the pick is for 90 minutes or advancement.
-- Include citations for schedule and key evidence.
-- Include probability ranges, not false precision.
-- Check that likely scorelines and probability ranges are internally consistent.
-- Check that the headline judgment, probability leader, likely scoreline order, scoring table totals, rationale, key assumption, and failure path are internally consistent.
-- If the headline says "draw lean", draw should be the top or co-top probability range; if a team has the highest probability, the headline should say that team is the slight/clear favorite and name draw as the risk.
-- If the scoring table is tied or nearly tied, avoid a strong favorite label unless the rationale clearly explains why incentives, lineups, or matchup override the total score.
-- Re-read the final answer and saved markdown once before persisting; fix contradictions before writing or responding.
-- After persisting prediction files, run a read-only subagent consistency review when subagents are available. Use one or two files per subagent and ask for exact contradictions plus minimal corrections.
-- Integrate subagent findings before final response. If any prediction file changes after review, re-check the changed lines and ensure the saved markdown, final answer summary, and probability tables still match.
-- Check group incentives and rotation risk for group-stage matches.
-- Include category scores and a total score comparison when technical detail is requested.
-- Name the main counterargument.
+- Date/time are absolute and Beijing time is clear where needed.
+- Prediction says whether it is 90-minute result or advancement.
+- Probability ranges, scorelines, scoring table, evidence ledger, rationale, key assumption, and failure path tell the same story.
+- If the headline says "draw lean", draw is top or co-top.
+- If a team has the highest probability, the headline names it as slight/clear/strong favorite according to the band.
+- Sources support schedule, availability, standings, and key claims.
+- Re-read the saved markdown after writing; run read-only subagent consistency review when available.
