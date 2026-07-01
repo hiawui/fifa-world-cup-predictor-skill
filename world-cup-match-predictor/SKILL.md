@@ -36,6 +36,8 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Compare coaching through shape, pressing height, buildup, substitution timing, and whether the coach reliably improves games in tournament settings.
    - For tactics, check pressing resistance, set pieces, transition defense, aerial duels, pace, goalkeeper reliability, and whether either side must chase the game.
    - Look specifically for defensive error tendency and control after taking the lead; favorites often fail by conceding during low-control phases.
+   - Treat true home-field knockout conditions as a probability driver, not just atmosphere: host nation, familiar venue, altitude/climate adaptation, crowd pressure, and early-tempo advantage should usually move the host's 90-minute win probability when supported by current form and lineup strength.
+   - When a strong favorite faces an opponent missing a key center-back, holding midfielder, or goalkeeper, test whether the favorite's scoring ceiling rises enough to include a multi-goal scoreline such as 3-0 or 3-1, not only conservative 1-goal-margin outcomes.
    - Keep head-to-head secondary unless the current matchup pattern is unusually stable and well supported.
    - Treat current-tournament evidence as stronger than pre-tournament reputation once the tournament has started.
    - Promote material counterarguments into the probability estimate; do not leave rotation, low motivation, draw incentives, or lineup uncertainty only as prose.
@@ -58,6 +60,9 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Match prose intensity to probability band: 70%+ favorite requires a weak draw path; 65%-70% supports "clear favorite"; 58%-65% is moderate favorite, not domination; 50%-58% is slight edge/toss-up.
    - If rationale implies a band more than about 5 percentage points away from the table, revise the probabilities or the language.
    - If two outcomes are close enough for wording like "倾向平局", "小优", or "toss-up", make the probability ranges and scoreline order reflect that closeness.
+   - When calibration rules point in different directions, first decide which evidence is stronger in this specific match, then make a net adjustment instead of mechanically stacking every rule.
+   - In knockout matches played in a host nation's true home venue, do not leave home advantage only in the context score. If the host has no major lineup downgrade and current-tournament form is at least solid, consider a 3-7 point upward adjustment to 90-minute win probability; reduce or skip it when the opponent's low block, altitude adaptation, or market signal clearly offsets it.
+   - For favorites with clear attacking superiority plus opponent defensive-spine absences, keep the draw visible but include at least one higher-ceiling likely scoreline when the evidence supports sustained chance creation.
    - For group finales, cap confidence when a stronger team has advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without lineup and motivation support.
    - If both teams can benefit from a draw, raise draw probability meaningfully or explain why match dynamics point away from it.
 

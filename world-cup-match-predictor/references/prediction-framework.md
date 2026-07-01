@@ -23,6 +23,8 @@ Then convert each material factor into a directional probability adjustment. If 
 6. Context: rest days, travel, climate, home-region advantage, rotation incentives.
 7. Market signal: bookmaker odds or prediction markets, especially liquid markets or sharp late moves.
 
+When the match is a knockout fixture in a host nation's true home venue, split home advantage into concrete pieces: crowd pressure, familiar pitch/stadium, climate or altitude adaptation, travel burden, referee/tempo pressure, and likelihood of a fast start. Treat supported factors as probability drivers, not only narrative context.
+
 ## Scoring Rubric
 
 Default 100-point rubric, aligned with `SKILL.md`:
@@ -44,6 +46,8 @@ Optional sub-factors:
 
 For group-stage finales, make incentives visible in the score. If useful, move 5-10 points of weight from squad/tactics into context/motivation to reflect qualification status, draw incentives, rotation, cards, and minute management.
 
+For host-nation knockout matches, the 10-point context/motivation/environment bucket may understate the effect if the game is genuinely at home. If the host has solid form and near-best lineup, reflect the edge both in the context score and in the probability table. If the opponent has a credible low block or altitude/climate adaptation, offset the adjustment explicitly.
+
 ## Probability Calibration
 
 Use these 90-minute probability bands:
@@ -61,12 +65,16 @@ Draw guardrails:
 - If both teams benefit from a draw, start near 30% and adjust for tactics, defensive reliability, and market signal.
 - If both teams can accept a draw and lineups/shapes are conservative, make 0-0 a live scoreline, not just 1-1.
 
+When guardrails point in opposite directions, use the evidence ledger to decide the net effect. For example, true home advantage and opponent defensive absences can lower the draw from the generic knockout range, while elite low-block discipline or a strong goalkeeper can offset those favorite-side factors.
+
 Favorite guardrails:
 
 - Already-qualified favorite with probable rotation versus a motivated opponent: reduce 90-minute win probability by roughly 5-12 points unless confirmed lineups contradict rotation.
 - If rotation removes the defensive spine (goalkeeper, center-backs, holding midfielder, fullback pair), downgrade defensive reliability again or widen opponent/draw ranges.
 - Already-qualified favorite with strong lineup still needs motivation evidence before exceeding 60% against an opponent with a must-win path and enough attacking quality.
 - If prose says "rotation could make this close" or "a draw is natural", the table must reflect that risk.
+- Strong favorite scoring ceiling: when a favorite has a major attacking edge and the opponent is missing a defensive-spine player (center-back, holding midfielder, or goalkeeper), test 3-0 or 3-1 as a plausible scoreline. Do not let generic knockout caution force every favorite prediction into 1-goal-margin scores if the evidence points to sustained pressure and weak resistance.
+- Strong home host adjustment: in true home knockout conditions with no major host lineup downgrade and at least solid current form, consider adding roughly 3-7 points to the host's 90-minute win probability. Use the lower end for disciplined, low-block opponents; use the higher end when the host has early-pressure weapons and the opponent shows defensive fragility.
 
 ## Knockout Calibration
 
@@ -75,6 +83,7 @@ Keep 90-minute result separate from advancement.
 - Weaker sides often rationally defend deep and target extra time/penalties.
 - Raise 90-minute draw into the 28%-35% range when the underdog has credible low-block discipline, strong goalkeeper, set-piece threat, or penalty edge.
 - Keep draw closer to 24%-29% when the favorite creates early chances, the underdog has repeated defensive errors, both sides play high-transition football, or the underdog must attack.
+- Do not mechanically overprice the draw against a strong favorite when the underdog's defensive spine is weakened. In that case, keep the draw visible but allow the favorite's multi-goal path to take more probability.
 - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
 - Add advancement context only after the 90-minute table. Mention goalkeeper penalty record, designated takers, rest days, prior minutes, and squad depth for 120 minutes when relevant.
 
