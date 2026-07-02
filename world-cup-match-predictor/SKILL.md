@@ -60,6 +60,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Match prose intensity to probability band: 70%+ favorite requires a weak draw path; 65%-70% supports "clear favorite"; 58%-65% is moderate favorite, not domination; 50%-58% is slight edge/toss-up.
    - If rationale implies a band more than about 5 percentage points away from the table, revise the probabilities or the language.
    - If two outcomes are close enough for wording like "倾向平局", "小优", or "toss-up", make the probability ranges and scoreline order reflect that closeness.
+   - If the likely-score order lists a draw first or co-first and draw probability is near 30%, do not headline the match as a normal win pick. Phrase it as "90-minute draw risk is high; Team A has the better advancement path" unless the evidence clearly favors a 90-minute winner.
    - When calibration rules point in different directions, first decide which evidence is stronger in this specific match, then make a net adjustment instead of mechanically stacking every rule.
    - In knockout matches played in a host nation's true home venue, do not leave home advantage only in the context score. If the host has no major lineup downgrade and current-tournament form is at least solid, consider a 3-7 point upward adjustment to 90-minute win probability; reduce or skip it when the opponent's low block, altitude adaptation, or market signal clearly offsets it.
    - For favorites with clear attacking superiority plus opponent defensive-spine absences, keep the draw visible but include at least one higher-ceiling likely scoreline when the evidence supports sustained chance creation.
@@ -71,6 +72,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Weaker sides often defend deep and target extra time or penalties, so the 90-minute draw can be 28%-35% or higher when supported by low-block discipline, goalkeeper quality, set pieces, or penalty edge.
    - Do not force high draws mechanically. Keep draws closer to 24%-29% when the favorite has early-chance creation, the underdog has defensive errors, both teams are high-transition, or game state forces the underdog to attack.
    - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open up.
+   - If favorite win is below roughly 50%, draw is close to 30%, and advancement still favors that favorite, explicitly split the wording: "90-minute result is close / draw-led, but Team A is more likely to advance." Do not let the advancement edge leak into the 90-minute headline.
    - Add extra-time/penalty assessment when draw probability exceeds 25%, and include advancement probability only as supplementary context.
    - Account for elimination-pressure psychology, prior minutes played, rest days, squad depth for 120 minutes, goalkeeper penalty record, and designated takers.
 
@@ -89,6 +91,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Track primary outcome hit, likely-score hit, and calibration quality separately.
    - Do not score live or unfinished matches.
    - Explain misses through evidence gaps or weighting errors, not hindsight certainty.
+   - When a backtest shows the advancement call was right but the 90-minute pick missed, classify it as a wording/calibration error if the original evidence already supported a high draw path.
    - Convert repeated misses into skill updates, especially for incentives, lineup uncertainty, draw pricing, overreliance on reputation, and knockout draw/penalty paths.
 
 ## Evidence Rules

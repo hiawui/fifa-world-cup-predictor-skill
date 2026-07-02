@@ -62,6 +62,7 @@ Draw guardrails:
 
 - Football draw probability must stay visible even when one side is stronger.
 - Do not list a draw as a likely scoreline while assigning it a very low probability unless explicitly explaining it as a secondary path.
+- If the first or co-first likely scoreline is a draw and draw probability is around 28%-32%, the headline should emphasize draw risk or a draw-led 90-minute profile, not present the favorite as a routine 90-minute win pick.
 - If both teams benefit from a draw, start near 30% and adjust for tactics, defensive reliability, and market signal.
 - If both teams can accept a draw and lineups/shapes are conservative, make 0-0 a live scoreline, not just 1-1.
 
@@ -85,6 +86,7 @@ Keep 90-minute result separate from advancement.
 - Keep draw closer to 24%-29% when the favorite creates early chances, the underdog has repeated defensive errors, both sides play high-transition football, or the underdog must attack.
 - Do not mechanically overprice the draw against a strong favorite when the underdog's defensive spine is weakened. In that case, keep the draw visible but allow the favorite's multi-goal path to take more probability.
 - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
+- If favorite win is below roughly 50%, draw is close to 30%, and the favorite's advancement probability is materially higher, write the call as "90-minute draw/toss-up, favorite to advance" rather than compressing both ideas into a favorite 90-minute pick.
 - Add advancement context only after the 90-minute table. Mention goalkeeper penalty record, designated takers, rest days, prior minutes, and squad depth for 120 minutes when relevant.
 
 ## Matchup Checklists
@@ -165,6 +167,7 @@ For saved predictions in `pred/`:
 - Verify final score from official/match-center sources and read at least one match report or live text.
 - Track primary 90-minute outcome, likely-score hit, and calibration quality separately.
 - A 53% favorite losing is not automatically a bad forecast; repeated misses from the same hidden factor are the problem.
+- If advancement is correct but the 90-minute result is a draw, check whether the original wording overpromoted the advancement edge into the 90-minute headline.
 - Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
 - Convert repeated errors into explicit future probability adjustments.
 
@@ -176,6 +179,7 @@ Before saving or answering:
 - Prediction says whether it is 90-minute result or advancement.
 - Probability ranges, scorelines, scoring table, evidence ledger, rationale, key assumption, and failure path tell the same story.
 - If the headline says "draw lean", draw is top or co-top.
+- If the headline says a team is more likely to win in 90 minutes, that team's probability should be clearly above the draw and scoreline order should not imply draw-first unless the wording explicitly says the match is near toss-up.
 - If a team has the highest probability, the headline names it as slight/clear/strong favorite according to the band.
 - Sources support schedule, availability, standings, and key claims.
 - Re-read the saved markdown after writing; run read-only subagent consistency review when available.
