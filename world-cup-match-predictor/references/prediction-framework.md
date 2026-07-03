@@ -43,6 +43,7 @@ Optional sub-factors:
 - Tactical matchup: low-block breaking, chance conversion, set pieces, transition defense, aerial duels, pressing resistance.
 - Coaching/game management: default shape, pressing triggers, substitution timing, rotation choices, penalty/extra-time handling.
 - Match-state reliability: defensive error tendency, control after scoring first, ability to protect a draw, late-game concentration.
+- Favorite separation: early chance creation, field tilt, opponent ball retention, whether the underdog can create repeatable counters, and whether an early favorite goal forces the underdog into a weaker game state.
 
 For group-stage finales, make incentives visible in the score. If useful, move 5-10 points of weight from squad/tactics into context/motivation to reflect qualification status, draw incentives, rotation, cards, and minute management.
 
@@ -75,6 +76,8 @@ Favorite guardrails:
 - Already-qualified favorite with strong lineup still needs motivation evidence before exceeding 60% against an opponent with a must-win path and enough attacking quality.
 - If prose says "rotation could make this close" or "a draw is natural", the table must reflect that risk.
 - Strong favorite scoring ceiling: when a favorite has a major attacking edge and the opponent is missing a defensive-spine player (center-back, holding midfielder, or goalkeeper), test 3-0 or 3-1 as a plausible scoreline. Do not let generic knockout caution force every favorite prediction into 1-goal-margin scores if the evidence points to sustained pressure and weak resistance.
+- Controlled favorite clean-sheet path: when the favorite has a stable defensive spine, midfield control, and strong rest defense while the underdog has limited repeatable chance creation, test 2-0 before defaulting to 2-1. A favorite does not need to be a 65%+ team for 2-0 to be a coherent likely scoreline.
+- Favorite separation adjustment: if the favorite is likely to create early chances and the underdog becomes much weaker after conceding first, shift some probability from draw into favorite win and include at least one multi-goal or clean-sheet scoreline. This is especially important after backtests where the pick was right but the scoreline was too conservative.
 - Strong home host adjustment: in true home knockout conditions with no major host lineup downgrade and at least solid current form, consider adding roughly 3-7 points to the host's 90-minute win probability. Use the lower end for disciplined, low-block opponents; use the higher end when the host has early-pressure weapons and the opponent shows defensive fragility.
 
 ## Knockout Calibration
@@ -84,6 +87,8 @@ Keep 90-minute result separate from advancement.
 - Weaker sides often rationally defend deep and target extra time/penalties.
 - Raise 90-minute draw into the 28%-35% range when the underdog has credible low-block discipline, strong goalkeeper, set-piece threat, or penalty edge.
 - Keep draw closer to 24%-29% when the favorite creates early chances, the underdog has repeated defensive errors, both sides play high-transition football, or the underdog must attack.
+- Keep draw closer to 22%-27% when the favorite combines territorial control with good counter-press/rest defense and the underdog's upset path relies on isolated transition moments rather than sustained chance creation.
+- Do not price every knockout underdog as if it can hold 0-0 deep. If the underdog has recently allowed pressure, struggles to retain possession, or must defend long phases without a reliable outlet, the favorite's 2-0/3-0 path should take probability away from the draw.
 - Do not mechanically overprice the draw against a strong favorite when the underdog's defensive spine is weakened. In that case, keep the draw visible but allow the favorite's multi-goal path to take more probability.
 - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
 - If favorite win is below roughly 50%, draw is close to 30%, and the favorite's advancement probability is materially higher, write the call as "90-minute draw/toss-up, favorite to advance" rather than compressing both ideas into a favorite 90-minute pick.

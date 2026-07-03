@@ -36,8 +36,10 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Compare coaching through shape, pressing height, buildup, substitution timing, and whether the coach reliably improves games in tournament settings.
    - For tactics, check pressing resistance, set pieces, transition defense, aerial duels, pace, goalkeeper reliability, and whether either side must chase the game.
    - Look specifically for defensive error tendency and control after taking the lead; favorites often fail by conceding during low-control phases.
+   - Also test whether the favorite can turn control into separation: early chance creation, press resistance, field tilt, underdog ball retention, and whether an early goal would force the underdog out of its preferred low-risk plan.
    - Treat true home-field knockout conditions as a probability driver, not just atmosphere: host nation, familiar venue, altitude/climate adaptation, crowd pressure, and early-tempo advantage should usually move the host's 90-minute win probability when supported by current form and lineup strength.
    - When a strong favorite faces an opponent missing a key center-back, holding midfielder, or goalkeeper, test whether the favorite's scoring ceiling rises enough to include a multi-goal scoreline such as 3-0 or 3-1, not only conservative 1-goal-margin outcomes.
+   - When a favorite has midfield control, reliable rest defense, and the underdog has shown defensive stress or limited chance creation, include a clean-sheet or multi-goal scoreline such as 2-0 or 3-0 in the scoring sanity check unless lineup/news evidence argues against it.
    - Keep head-to-head secondary unless the current matchup pattern is unusually stable and well supported.
    - Treat current-tournament evidence as stronger than pre-tournament reputation once the tournament has started.
    - Promote material counterarguments into the probability estimate; do not leave rotation, low motivation, draw incentives, or lineup uncertainty only as prose.
@@ -64,6 +66,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - When calibration rules point in different directions, first decide which evidence is stronger in this specific match, then make a net adjustment instead of mechanically stacking every rule.
    - In knockout matches played in a host nation's true home venue, do not leave home advantage only in the context score. If the host has no major lineup downgrade and current-tournament form is at least solid, consider a 3-7 point upward adjustment to 90-minute win probability; reduce or skip it when the opponent's low block, altitude adaptation, or market signal clearly offsets it.
    - For favorites with clear attacking superiority plus opponent defensive-spine absences, keep the draw visible but include at least one higher-ceiling likely scoreline when the evidence supports sustained chance creation.
+   - For favorites with a stable defensive spine, midfield control, and evidence the opponent struggles to progress or protect the box, do not default to 2-1/1-1. Test whether the favorite win probability should move from slight edge into moderate favorite range and whether 2-0 is more coherent than a conceded-goal scoreline.
    - For group finales, cap confidence when a stronger team has advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without lineup and motivation support.
    - If both teams can benefit from a draw, raise draw probability meaningfully or explain why match dynamics point away from it.
 
@@ -71,6 +74,8 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - The primary forecast remains 90-minute win/draw/loss; separate it from "to advance".
    - Weaker sides often defend deep and target extra time or penalties, so the 90-minute draw can be 28%-35% or higher when supported by low-block discipline, goalkeeper quality, set pieces, or penalty edge.
    - Do not force high draws mechanically. Keep draws closer to 24%-29% when the favorite has early-chance creation, the underdog has defensive errors, both teams are high-transition, or game state forces the underdog to attack.
+   - Keep draws closer to 22%-27% when the favorite has sustained territorial control, strong counter-press/rest defense, and the underdog's main upset path depends on isolated transitions rather than repeatable chance creation.
+   - If the underdog is likely to concede territory and has recently allowed multiple high-quality chances, do not price the match as a generic knockout grind; let the favorite's 2-0/3-0 path absorb part of the draw probability.
    - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open up.
    - If favorite win is below roughly 50%, draw is close to 30%, and advancement still favors that favorite, explicitly split the wording: "90-minute result is close / draw-led, but Team A is more likely to advance." Do not let the advancement edge leak into the 90-minute headline.
    - Add extra-time/penalty assessment when draw probability exceeds 25%, and include advancement probability only as supplementary context.
