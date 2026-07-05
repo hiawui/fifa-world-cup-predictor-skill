@@ -63,6 +63,8 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - If rationale implies a band more than about 5 percentage points away from the table, revise the probabilities or the language.
    - If two outcomes are close enough for wording like "倾向平局", "小优", or "toss-up", make the probability ranges and scoreline order reflect that closeness.
    - If the likely-score order lists a draw first or co-first and draw probability is near 30%, do not headline the match as a normal win pick. Phrase it as "90-minute draw risk is high; Team A has the better advancement path" unless the evidence clearly favors a 90-minute winner.
+   - If the rationale or failure path already describes a concrete 0-0/1-1 route through low-block discipline, goalkeeper saves, set pieces, and counters, move that risk into the probability table and likely scorelines. Do not leave it only as a caveat.
+   - Do not let a favorite's extra-time, penalty, squad-depth, or general advancement edge leak into the 90-minute win probability. If the favorite is much more likely to advance but the underdog can credibly hold 90 minutes level, split the headline into "90-minute favorite/draw risk" and "advancement favorite."
    - When calibration rules point in different directions, first decide which evidence is stronger in this specific match, then make a net adjustment instead of mechanically stacking every rule.
    - In knockout matches played in a host nation's true home venue, do not leave home advantage only in the context score. If the host has no major lineup downgrade and current-tournament form is at least solid, consider a 3-7 point upward adjustment to 90-minute win probability; reduce or skip it when the opponent's low block, altitude adaptation, or market signal clearly offsets it.
    - For favorites with clear attacking superiority plus opponent defensive-spine absences, keep the draw visible but include at least one higher-ceiling likely scoreline when the evidence supports sustained chance creation.
@@ -73,11 +75,13 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
 6. Handle knockout matches.
    - The primary forecast remains 90-minute win/draw/loss; separate it from "to advance".
    - Weaker sides often defend deep and target extra time or penalties, so the 90-minute draw can be 28%-35% or higher when supported by low-block discipline, goalkeeper quality, set pieces, or penalty edge.
+   - Against disciplined low-block underdogs with a strong goalkeeper plus at least one repeatable outlet on counters or set pieces, start the draw assessment around 24%-30% even when the favorite is clearly stronger. Move lower only if current evidence shows sustained favorite chance creation, defensive-spine absences, or repeated underdog breakdowns.
    - Do not force high draws mechanically. Keep draws closer to 24%-29% when the favorite has early-chance creation, the underdog has defensive errors, both teams are high-transition, or game state forces the underdog to attack.
    - Keep draws closer to 22%-27% when the favorite has sustained territorial control, strong counter-press/rest defense, and the underdog's main upset path depends on isolated transitions rather than repeatable chance creation.
    - If the underdog is likely to concede territory and has recently allowed multiple high-quality chances, do not price the match as a generic knockout grind; let the favorite's 2-0/3-0 path absorb part of the draw probability.
    - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open up.
    - If favorite win is below roughly 50%, draw is close to 30%, and advancement still favors that favorite, explicitly split the wording: "90-minute result is close / draw-led, but Team A is more likely to advance." Do not let the advancement edge leak into the 90-minute headline.
+   - If a 65%+ favorite faces an underdog whose recent tournament evidence includes multiple draws against strong opponents, strong shot-stopping, and a coherent low-event plan, retest whether the favorite belongs closer to 60%-66% with a 1-1 scoreline included. Only keep 70%+ when the draw path is specifically weak.
    - Add extra-time/penalty assessment when draw probability exceeds 25%, and include advancement probability only as supplementary context.
    - Account for elimination-pressure psychology, prior minutes played, rest days, squad depth for 120 minutes, goalkeeper penalty record, and designated takers.
 
@@ -97,6 +101,8 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Do not score live or unfinished matches.
    - Explain misses through evidence gaps or weighting errors, not hindsight certainty.
    - When a backtest shows the advancement call was right but the 90-minute pick missed, classify it as a wording/calibration error if the original evidence already supported a high draw path.
+   - If the exact or first likely scoreline hits but the headline 90-minute pick misses, classify it as a headline/probability calibration error rather than a full model miss; update wording rules so the highest-risk scoreline and probability leader are aligned.
+   - After a miss where a strong favorite advances only after a 90-minute draw, audit whether low-block discipline, goalkeeper form, and repeatable underdog outlets were underweighted. Convert that pattern into a higher draw baseline for similar knockout fixtures.
    - Convert repeated misses into skill updates, especially for incentives, lineup uncertainty, draw pricing, overreliance on reputation, and knockout draw/penalty paths.
 
 ## Evidence Rules

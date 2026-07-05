@@ -64,6 +64,7 @@ Draw guardrails:
 - Football draw probability must stay visible even when one side is stronger.
 - Do not list a draw as a likely scoreline while assigning it a very low probability unless explicitly explaining it as a secondary path.
 - If the first or co-first likely scoreline is a draw and draw probability is around 28%-32%, the headline should emphasize draw risk or a draw-led 90-minute profile, not present the favorite as a routine 90-minute win pick.
+- If the evidence ledger or failure path already gives a concrete route to 0-0 or 1-1 through compact defending, a high-performing goalkeeper, set pieces, and counters, the draw must appear in both the probability table and likely scorelines. Treat this as a model input, not a prose disclaimer.
 - If both teams benefit from a draw, start near 30% and adjust for tactics, defensive reliability, and market signal.
 - If both teams can accept a draw and lineups/shapes are conservative, make 0-0 a live scoreline, not just 1-1.
 
@@ -79,6 +80,8 @@ Favorite guardrails:
 - Controlled favorite clean-sheet path: when the favorite has a stable defensive spine, midfield control, and strong rest defense while the underdog has limited repeatable chance creation, test 2-0 before defaulting to 2-1. A favorite does not need to be a 65%+ team for 2-0 to be a coherent likely scoreline.
 - Favorite separation adjustment: if the favorite is likely to create early chances and the underdog becomes much weaker after conceding first, shift some probability from draw into favorite win and include at least one multi-goal or clean-sheet scoreline. This is especially important after backtests where the pick was right but the scoreline was too conservative.
 - Strong home host adjustment: in true home knockout conditions with no major host lineup downgrade and at least solid current form, consider adding roughly 3-7 points to the host's 90-minute win probability. Use the lower end for disciplined, low-block opponents; use the higher end when the host has early-pressure weapons and the opponent shows defensive fragility.
+- Advancement leakage check: do not convert a favorite's superior bench, extra-time strength, penalty takers, or goalkeeper penalty reputation into 90-minute win probability unless it changes regulation-time tactics. Those factors belong primarily in the advancement section.
+- Strong favorite retest: before assigning 70%+ in a knockout match, ask whether the underdog has already held strong opponents level, has a goalkeeper in high form, and has at least one repeatable counter or set-piece outlet. If yes, retest a 60%-66% favorite range and include 1-1 unless current lineup or chance-creation evidence clearly breaks that path.
 
 ## Knockout Calibration
 
@@ -86,12 +89,14 @@ Keep 90-minute result separate from advancement.
 
 - Weaker sides often rationally defend deep and target extra time/penalties.
 - Raise 90-minute draw into the 28%-35% range when the underdog has credible low-block discipline, strong goalkeeper, set-piece threat, or penalty edge.
+- For disciplined low-block underdogs with strong shot-stopping and a real counter/set-piece outlet, start from a 24%-30% draw baseline even against clear favorites. Move to 28%-35% when the underdog has recently drawn strong opponents or the favorite lacks confirmed full-strength attackers.
 - Keep draw closer to 24%-29% when the favorite creates early chances, the underdog has repeated defensive errors, both sides play high-transition football, or the underdog must attack.
 - Keep draw closer to 22%-27% when the favorite combines territorial control with good counter-press/rest defense and the underdog's upset path relies on isolated transition moments rather than sustained chance creation.
 - Do not price every knockout underdog as if it can hold 0-0 deep. If the underdog has recently allowed pressure, struggles to retain possession, or must defend long phases without a reliable outlet, the favorite's 2-0/3-0 path should take probability away from the draw.
 - Do not mechanically overprice the draw against a strong favorite when the underdog's defensive spine is weakened. In that case, keep the draw visible but allow the favorite's multi-goal path to take more probability.
 - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
 - If favorite win is below roughly 50%, draw is close to 30%, and the favorite's advancement probability is materially higher, write the call as "90-minute draw/toss-up, favorite to advance" rather than compressing both ideas into a favorite 90-minute pick.
+- If the favorite win is 65%+ but the most plausible miss path is 1-1 after a low-event regulation match, include 1-1 as a secondary likely scoreline or explain why the current evidence makes that path weak.
 - Add advancement context only after the 90-minute table. Mention goalkeeper penalty record, designated takers, rest days, prior minutes, and squad depth for 120 minutes when relevant.
 
 ## Matchup Checklists
@@ -173,6 +178,8 @@ For saved predictions in `pred/`:
 - Track primary 90-minute outcome, likely-score hit, and calibration quality separately.
 - A 53% favorite losing is not automatically a bad forecast; repeated misses from the same hidden factor are the problem.
 - If advancement is correct but the 90-minute result is a draw, check whether the original wording overpromoted the advancement edge into the 90-minute headline.
+- If a likely scoreline hits but the headline pick misses, mark it as a headline/probability calibration error. The model saw the match shape, but the final wording and probability leader did not respect it.
+- If a strong favorite only advances after a 90-minute draw, audit underweighted low-block discipline, goalkeeper shot-stopping, and repeatable underdog outlets before blaming variance.
 - Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
 - Convert repeated errors into explicit future probability adjustments.
 
