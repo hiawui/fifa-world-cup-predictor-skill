@@ -25,6 +25,8 @@ Then convert each material factor into a directional probability adjustment. If 
 
 When the match is a knockout fixture in a host nation's true home venue, split home advantage into concrete pieces: crowd pressure, familiar pitch/stadium, climate or altitude adaptation, travel burden, referee/tempo pressure, and likelihood of a fast start. Treat supported factors as probability drivers, not only narrative context.
 
+For availability, distinguish confirmed starter, expected starter, bench-available, minutes-limited, and emergency-only. A star who is only available from the bench improves late-game options, but may reduce early chance creation, pressing cohesion, and first-hour control relative to a full-strength XI.
+
 ## Scoring Rubric
 
 Default 100-point rubric, aligned with `SKILL.md`:
@@ -45,6 +47,8 @@ Optional sub-factors:
 - Match-state reliability: defensive error tendency, control after scoring first, ability to protect a draw, late-game concentration.
 - Favorite separation: early chance creation, field tilt, opponent ball retention, whether the underdog can create repeatable counters, and whether an early favorite goal forces the underdog into a weaker game state.
 - Favorite type: separate "separation favorites" from "control favorites." Separation favorites can turn pressure into multiple high-quality chances through transition speed, bench impact, and opponent fatigue or poor outlets. Control favorites may dominate territory but still need a penalty, set piece, or one elite action against a compact block.
+- Underdog threat type: separate "resistance underdogs" from "punch underdogs." Resistance underdogs mostly block shots and survive; punch underdogs have a repeatable scorer-creator outlet, transition runner, or set-piece mismatch that can produce two goals without much possession. Punch underdogs need a higher win tail, not just a higher draw baseline.
+- Event volatility: identify whether a matchup is likely to stay low-event or become high-event through home pressure, altitude fatigue, referee strictness, cards, penalties, forced chasing, or both sides having high-conversion attackers.
 
 For group-stage finales, make incentives visible in the score. If useful, move 5-10 points of weight from squad/tactics into context/motivation to reflect qualification status, draw incentives, rotation, cards, and minute management.
 
@@ -83,6 +87,9 @@ Favorite guardrails:
 - Late separation adjustment: if the favorite has stronger bench options, better transition finishing, and the underdog has prior extra-time fatigue or weak ball retention, do not let home atmosphere, fatigue narrative, or generic knockout caution push the draw above 30% by default. Move some draw probability into 2-0/3-0/3-1 paths when the evidence supports a second-half break.
 - Control-not-volume adjustment: if the favorite's edge is mostly possession, territory, and individual quality against a disciplined low block with a strong goalkeeper, do not assume multi-goal dominance. Keep the win probability healthy, but order likely scores around 1-0/2-0/1-1 unless evidence shows repeatable big-chance creation.
 - Strong home host adjustment: in true home knockout conditions with no major host lineup downgrade and at least solid current form, consider adding roughly 3-7 points to the host's 90-minute win probability. Use the lower end for disciplined, low-block opponents; use the higher end when the host has early-pressure weapons and the opponent shows defensive fragility.
+- Star availability adjustment: if a key favorite attacker or creator is only bench-available or minutes-limited, subtract from early scoring/control and consider moving 2-5 points out of the favorite's 90-minute win range unless the replacement structure has already performed. Keep the late substitute benefit mainly in comeback and advancement discussion.
+- Punch-underdog adjustment: if the underdog has a world-class finisher plus a reliable creator, strong wide delivery, or set-piece supply, test whether its win probability should rise by 3-6 points over a generic underdog baseline. This is especially important when the favorite has weak rest defense, vulnerable fullbacks, or a habit of losing control late.
+- High-event total adjustment: when the evidence supports home pressure, altitude fatigue, referee strictness, cards, penalties, forced chasing, or unusually efficient finishers, do not over-anchor on 1-1/2-1 merely because it is a knockout match. Include a 2-2, 3-2, 2-3, or 3-1 tail if coherent with the probability table.
 - Advancement leakage check: do not convert a favorite's superior bench, extra-time strength, penalty takers, or goalkeeper penalty reputation into 90-minute win probability unless it changes regulation-time tactics. Those factors belong primarily in the advancement section.
 - Strong favorite retest: before assigning 70%+ in a knockout match, ask whether the underdog has already held strong opponents level, has a goalkeeper in high form, and has at least one repeatable counter or set-piece outlet. If yes, retest a 60%-66% favorite range and include 1-1 unless current lineup or chance-creation evidence clearly breaks that path.
 
@@ -98,7 +105,9 @@ Keep 90-minute result separate from advancement.
 - Do not price every knockout underdog as if it can hold 0-0 deep. If the underdog has recently allowed pressure, struggles to retain possession, or must defend long phases without a reliable outlet, the favorite's 2-0/3-0 path should take probability away from the draw.
 - Do not mechanically overprice the draw against a strong favorite when the underdog's defensive spine is weakened. In that case, keep the draw visible but allow the favorite's multi-goal path to take more probability.
 - Distinguish compact resistance from repeatable threat. Shot blocking and goalkeeper saves can keep an underdog alive, but the draw baseline should not rise sharply unless the underdog can also relieve pressure through counters, set pieces, ball retention, or a credible route to the first goal.
+- If the underdog's repeatable threat includes an elite finisher and credible service, model both 1-goal and 2-goal upset paths. A favorite can be the better team yet still deserve a materially lower win range if it cannot suppress that outlet for 90 minutes.
 - Host advantage is not automatically a draw booster. In true home-host knockout matches, test whether the host's crowd and fast start raise upset probability or whether the stronger opponent's late-game quality is more likely to produce separation after the first hour.
+- Host pressure is not automatically an under. If a host crowd and altitude create frantic pressing, long stoppages, cards, penalties, or repeated set pieces, the match can become high-event despite knockout incentives.
 - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
 - If favorite win is below roughly 50%, draw is close to 30%, and the favorite's advancement probability is materially higher, write the call as "90-minute draw/toss-up, favorite to advance" rather than compressing both ideas into a favorite 90-minute pick.
 - If the favorite win is 65%+ but the most plausible miss path is 1-1 after a low-event regulation match, include 1-1 as a secondary likely scoreline or explain why the current evidence makes that path weak.
@@ -114,12 +123,15 @@ Favorite vs underdog:
 - How important is the first goal? Can the underdog keep 0-0 deep?
 - Can the favorite's bench change the game after 60 minutes?
 - Does the underdog have more than one viable game state?
+- Is the underdog a resistance underdog or a punch underdog?
+- Is the favorite's key availability actually starting strength, or only bench/late-game strength?
 
 Two strong teams:
 
 - Separate midfield control from chance creation.
 - Compare goalkeeper and center-back error risk.
 - Check whether either coach is likely to rotate or protect players.
+- Decide whether the game is likely to be low-event control or high-event tradeoffs before choosing likely scorelines.
 - Treat extra time and penalties separately from 90-minute superiority.
 
 Group-stage finale:
@@ -173,6 +185,9 @@ Search hygiene:
 - Major draw/rotation risk appears in prose but not in probabilities.
 - Mixing "win in 90 minutes" with "advance".
 - Presenting gambling certainty or staking advice.
+- Treating "available" as equivalent to "fit to start and influence 60-90 minutes."
+- Describing an elite underdog scorer/creator route in the failure path without moving underdog win probability.
+- Using a 2-3 goal market mode to justify near-zero 4+ goal tail in a volatile knockout setting.
 
 ## Backtesting
 
@@ -187,6 +202,8 @@ For saved predictions in `pred/`:
 - If a strong favorite only advances after a 90-minute draw, audit underweighted low-block discipline, goalkeeper shot-stopping, and repeatable underdog outlets before blaming variance.
 - If the favorite wins but by fewer goals than expected, audit whether territorial control was mistaken for chance volume; adjust future scoreline ordering toward 1-0/2-0 when the underdog can block the box but not threaten often.
 - If the favorite wins by more than expected after a close first half, audit late-game acceleration, bench impact, fatigue, and underdog outlet quality; adjust future draw pricing downward when similar evidence shows the underdog cannot survive sustained second-half pressure.
+- If a favorite loses to an underdog with a world-class finisher or clear supply line, audit whether the model treated that outlet as draw risk rather than win risk, and whether the favorite's starter availability was overstated.
+- If total goals are materially higher than forecast, audit whether cards, penalties, home pressure, forced chasing, and high-conversion attackers were underweighted; adjust future scoreline tails before changing the primary win/draw/loss model.
 - Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
 - Convert repeated errors into explicit future probability adjustments.
 
