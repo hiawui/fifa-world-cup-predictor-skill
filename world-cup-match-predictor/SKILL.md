@@ -9,9 +9,11 @@ description: Evidence-based workflow for predicting, saving, or backtesting 2026
 
 Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match predictions and reviews. Treat predictions as probabilistic judgments, not certainties, and ground every major claim in current, cited evidence.
 
+For deeper, high-stakes, knockout, or backtesting work, read `references/prediction-framework.md` after this file. `SKILL.md` is the operating workflow; the reference file is the detailed calibration layer.
+
 ## Skill Maintenance
 
-When optimizing this skill, review both `SKILL.md` and `references/prediction-framework.md` in the same pass. Keep probability bands, scoring rubrics, evidence workflow, persistence requirements, and consistency checks aligned across both files before syncing the installed copy.
+When optimizing this skill, review both `SKILL.md` and `references/prediction-framework.md` in the same pass. Keep probability bands, scoring rubrics, evidence workflow, persistence requirements, and consistency checks aligned before syncing the installed copy.
 
 ## Core Workflow
 
@@ -25,24 +27,23 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Browse before predicting. Do not rely on memory for squads, injuries, standings, lineups, odds, results, or form.
    - Prefer official FIFA pages, federations, match centers, injury/team reports, odds aggregators, and established sports outlets.
    - Use at least two source types when available, usually official/schedule data plus performance, availability, or market data.
+   - For current-tournament team performance, use FIFA official team statistics when available before relying on article summaries. Start from `https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/statistics/team-statistics`, then review every visible team-statistics category: Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical. Do not base the technical-stat read only on Attacking.
+   - FIFA team statistics pages are dynamic; if plain HTML only shows an app shell, use a rendered browser read of visible page text or page requests. Capture the relevant full row for each team across category tabs rather than hand-copying one headline stat.
    - Within roughly 90 minutes of kickoff, look for confirmed lineups or reliable lineup reports before making a strong pick.
    - For completed matches, use final-score sources plus at least one match report or live text before judging prediction quality.
    - If evidence is unavailable or conflicting, state the limitation and avoid a strong pick.
 
 3. Build an evidence-first case.
-   - Establish incentives before team strength, especially qualification status, draw incentives, goal difference, rotation, and whether either side is eliminated. Do not equate eliminated with unmotivated; check pride, young players, coach pressure, and showcase incentives.
+   - Establish incentives before team strength: qualification status, draw incentives, goal difference, rotation, and whether either side is eliminated. Do not equate eliminated with unmotivated; check pride, young players, coach pressure, and showcase incentives.
    - Compare squad quality, current-tournament form, tactics, coaching/game management, availability, rest/travel/weather, and market movement.
    - Break squad quality into starting XI, first-impact substitutes, bench depth by position, and the main creator, scorer, holding midfielder, center-back, and goalkeeper.
-   - Compare coaching through shape, pressing height, buildup, substitution timing, and whether the coach reliably improves games in tournament settings.
-   - For tactics, check pressing resistance, set pieces, transition defense, aerial duels, pace, goalkeeper reliability, and whether either side must chase the game.
-   - Look specifically for defensive error tendency and control after taking the lead; favorites often fail by conceding during low-control phases.
-   - Also test whether the favorite can turn control into separation: early chance creation, press resistance, field tilt, underdog ball retention, and whether an early goal would force the underdog out of its preferred low-risk plan.
-   - Treat "available" and "match-fit starter" as different availability states. If a key creator, scorer, holding midfielder, center-back, or goalkeeper is only expected to be a substitute, minutes-limited, or returning from injury, downgrade starting-XI strength and early control directly instead of counting the player as a full positive.
-   - When an underdog has elite, repeatable outlets such as a world-class finisher plus a creator, fast wide runners, or strong set-piece delivery, test a 2-goal upset path as well as a draw path. Do not leave that threat only in prose as "one chance can change the game."
-   - For host knockout matches, separate low-event home resistance from high-event home pressure. Crowd, altitude, heat, referee tempo, cards, penalties, and forced chasing can raise volatility and total-goal tails, not only draw probability.
-   - Treat true home-field knockout conditions as a probability driver, not just atmosphere: host nation, familiar venue, altitude/climate adaptation, crowd pressure, and early-tempo advantage should usually move the host's 90-minute win probability when supported by current form and lineup strength.
-   - When a strong favorite faces an opponent missing a key center-back, holding midfielder, or goalkeeper, test whether the favorite's scoring ceiling rises enough to include a multi-goal scoreline such as 3-0 or 3-1, not only conservative 1-goal-margin outcomes.
-   - When a favorite has midfield control, reliable rest defense, and the underdog has shown defensive stress or limited chance creation, include a clean-sheet or multi-goal scoreline such as 2-0 or 3-0 in the scoring sanity check unless lineup/news evidence argues against it.
+   - Treat "available" and "match-fit starter" as different availability states. Downgrade starting-XI strength when key players are bench-only, minutes-limited, or returning from injury.
+   - Use official team statistics as a performance layer, not a replacement for matchup analysis. Weight Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical by match relevance.
+   - Interpret volume and quality separately. Shot/corner volume can create draw or upset paths, but shots on target, xG, inside-box attempts, possession control, defensive concessions, discipline, goalkeeping, running profile, and physical load determine how strong those paths are.
+   - For tactics, check pressing resistance, set pieces, transition defense, aerial duels, pace, goalkeeper reliability, control after taking the lead, and whether either side must chase the game.
+   - For favorites, test whether control can become separation: early chance creation, field tilt, opponent ball retention, bench impact, and whether an early goal forces the underdog out of its preferred plan.
+   - For underdogs, separate resistance from punch. A team with only blocks and saves mostly raises draw risk; a team with repeatable creator-runner-finisher, set-piece, or counter outlets also raises win probability and multi-goal tails.
+   - For host or home-region matches, treat crowd, altitude/climate, referee tempo, cards, penalties, and forced chasing as probability drivers when supported by evidence.
    - Keep head-to-head secondary unless the current matchup pattern is unusually stable and well supported.
    - Treat current-tournament evidence as stronger than pre-tournament reputation once the tournament has started.
    - Promote material counterarguments into the probability estimate; do not leave rotation, low motivation, draw incentives, or lineup uncertainty only as prose.
@@ -51,8 +52,8 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
      - Factors raising the draw probability
      - Factors raising Team B's 90-minute win probability
      - Factors that affect only advancement, not the 90-minute result
-   - Translate that ledger into directional probability adjustments. If a rationale point does not move win/draw/loss materially, label it as context rather than a driver.
-   - Always include lineup strength / rotation uncertainty: expected starting XI strength relative to best XI, known injuries/suspensions, likely cohesion or firepower impact, and an approximate directional effect on win probability. Put this under `## 首发强度/轮换不确定性`.
+   - Include a technical-stat interpretation under `## FIFA技术统计权重` for Chinese saved files when official data affects the call. If an older file uses `## 控球/射门数据权重`, make sure it still covers all relevant FIFA categories, not only attacking.
+   - Always include lineup strength / rotation uncertainty under `## 首发强度/轮换不确定性`.
 
 4. Estimate outcomes.
    - Working order: evidence ledger -> directional adjustments -> scoring sanity check -> probability ranges -> likely scorelines -> final wording.
@@ -61,44 +62,29 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Include one or two likely scorelines and keep them consistent with the probability table.
    - Include category scores unless evidence is too sparse. Default rubric: squad quality 30, recent/tournament performance 20, tactical matchup 25, coaching/game management 15, context/motivation/environment 10.
 
-5. Apply calibration rules.
-   - Match prose intensity to probability band: 70%+ favorite requires a weak draw path; 65%-70% supports "clear favorite"; 58%-65% is moderate favorite, not domination; 50%-58% is slight edge/toss-up.
+5. Apply calibration checks.
+   - Match prose intensity to probability band: 70%+ strong favorite, 65%-70% clear favorite, 58%-65% moderate favorite, 50%-58% slight edge/toss-up.
    - If rationale implies a band more than about 5 percentage points away from the table, revise the probabilities or the language.
-   - If two outcomes are close enough for wording like "倾向平局", "小优", or "toss-up", make the probability ranges and scoreline order reflect that closeness.
-   - If the likely-score order lists a draw first or co-first and draw probability is near 30%, do not headline the match as a normal win pick. Phrase it as "90-minute draw risk is high; Team A has the better advancement path" unless the evidence clearly favors a 90-minute winner.
-   - If the rationale or failure path already describes a concrete 0-0/1-1 route through low-block discipline, goalkeeper saves, set pieces, and counters, move that risk into the probability table and likely scorelines. Do not leave it only as a caveat.
-   - Do not let a favorite's extra-time, penalty, squad-depth, or general advancement edge leak into the 90-minute win probability. If the favorite is much more likely to advance but the underdog can credibly hold 90 minutes level, split the headline into "90-minute favorite/draw risk" and "advancement favorite."
-   - When calibration rules point in different directions, first decide which evidence is stronger in this specific match, then make a net adjustment instead of mechanically stacking every rule.
-   - In knockout matches played in a host nation's true home venue, do not leave home advantage only in the context score. If the host has no major lineup downgrade and current-tournament form is at least solid, consider a 3-7 point upward adjustment to 90-minute win probability; reduce or skip it when the opponent's low block, altitude adaptation, or market signal clearly offsets it.
-   - For favorites with clear attacking superiority plus opponent defensive-spine absences, keep the draw visible but include at least one higher-ceiling likely scoreline when the evidence supports sustained chance creation.
-   - For favorites with a stable defensive spine, midfield control, and evidence the opponent struggles to progress or protect the box, do not default to 2-1/1-1. Test whether the favorite win probability should move from slight edge into moderate favorite range and whether 2-0 is more coherent than a conceded-goal scoreline.
-   - Split favorite superiority into two types before choosing scorelines: "separation favorite" and "control favorite." A separation favorite has repeatable chance creation, transition speed, bench impact, and an opponent that weakens after conceding; include 2-0/3-0/3-1 paths and avoid overpricing a generic knockout draw. A control favorite mainly has possession and territory against a disciplined low block; keep win probability visible but make 1-0/2-0/1-1 more prominent.
-   - Do not let home-host atmosphere or opponent fatigue mechanically push draw probability above 30% when the stronger side has better late-game acceleration, transition finishing, and bench quality. Test whether the favorite's second-half separation path should take probability from the draw.
-   - If a home host's edge depends on aggressive starts, crowd-driven pressing, altitude fatigue, or a referee profile likely to produce cards/penalties, widen the scoreline sanity check before anchoring on 1-1/1-2. A close match can still be a 2-2, 2-3, or 3-2 type game when both teams have efficient finishers or set-piece threats.
-   - If odds or a total-goals market is used for calibration, do not collapse all value into the modal 2-3 goal range. Keep explicit probability mass for 4+ goals when the match has penalty/red-card risk, forced chasing, vulnerable fullbacks, aerial/set-piece mismatches, or both teams' best players are high-conversion attackers.
+   - If the likely-score order lists a draw first or co-first and draw probability is near 30%, headline the draw risk rather than presenting a routine win pick.
+   - Do not let advancement edge leak into 90-minute probability. Extra-time strength, penalties, and 120-minute squad depth belong in advancement context unless they change regulation tactics.
+   - Split favorites into "separation favorites" and "control favorites" before choosing scorelines. Separation favorites can justify 2-0/3-0/3-1 paths; control favorites against compact blocks often fit 1-0/2-0/1-1 better.
+   - Do not overprice generic knockout draws when current evidence shows sustained favorite chance creation, weak underdog outlets, defensive-spine absences, or late-game separation.
+   - Do not underprice draw/upset paths when the underdog has low-block discipline, strong goalkeeping, set pieces, repeatable counters, or elite single-action attackers.
+   - For volatile matches, keep 4+ goal tails visible when cards, penalties, forced chasing, vulnerable fullbacks, aerial mismatches, or high-conversion attackers support them.
    - For group finales, cap confidence when a stronger team has advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without lineup and motivation support.
-   - If both teams can benefit from a draw, raise draw probability meaningfully or explain why match dynamics point away from it.
 
 6. Handle knockout matches.
    - The primary forecast remains 90-minute win/draw/loss; separate it from "to advance".
    - Weaker sides often defend deep and target extra time or penalties, so the 90-minute draw can be 28%-35% or higher when supported by low-block discipline, goalkeeper quality, set pieces, or penalty edge.
-   - Against disciplined low-block underdogs with a strong goalkeeper plus at least one repeatable outlet on counters or set pieces, start the draw assessment around 24%-30% even when the favorite is clearly stronger. Move lower only if current evidence shows sustained favorite chance creation, defensive-spine absences, or repeated underdog breakdowns.
-   - Against underdogs with an elite finisher plus a reliable supply line, give the underdog win range a separate adjustment. If the favorite's defensive transitions or late-game box protection are suspect, a realistic underdog range may need several points shifted from favorite win into underdog win, not only into draw.
-   - Do not force high draws mechanically. Keep draws closer to 24%-29% when the favorite has early-chance creation, the underdog has defensive errors, both teams are high-transition, or game state forces the underdog to attack.
-   - Keep draws closer to 22%-27% when the favorite has sustained territorial control, strong counter-press/rest defense, and the underdog's main upset path depends on isolated transitions rather than repeatable chance creation.
-   - If the underdog is likely to concede territory and has recently allowed multiple high-quality chances, do not price the match as a generic knockout grind; let the favorite's 2-0/3-0 path absorb part of the draw probability.
-   - If the underdog is disciplined but mostly survives through blocking and goalkeeper volume, distinguish "resistance" from "repeatable outlet." Without reliable ball retention, set-piece threat, or counter outlets, keep the draw closer to the low/mid 20s and favor 1-0/2-0 over 1-1.
+   - Keep draws closer to the low/mid 20s when the favorite has sustained territorial control, good counter-press/rest defense, and the underdog lacks reliable outlets.
    - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open up.
-   - If favorite win is below roughly 50%, draw is close to 30%, and advancement still favors that favorite, explicitly split the wording: "90-minute result is close / draw-led, but Team A is more likely to advance." Do not let the advancement edge leak into the 90-minute headline.
-   - If a 65%+ favorite faces an underdog whose recent tournament evidence includes multiple draws against strong opponents, strong shot-stopping, and a coherent low-event plan, retest whether the favorite belongs closer to 60%-66% with a 1-1 scoreline included. Only keep 70%+ when the draw path is specifically weak.
    - Add extra-time/penalty assessment when draw probability exceeds 25%, and include advancement probability only as supplementary context.
-   - Account for elimination-pressure psychology, prior minutes played, rest days, squad depth for 120 minutes, goalkeeper penalty record, and designated takers.
 
 7. Explain, persist, and review.
    - Final output may lead with the pick, but the reasoning must be evidence-first.
    - State the key assumption and main failure path.
    - Save every analyzed match to `pred/YYYY-MM-DD_HHMM_TeamA-vs-TeamB.md`, using kickoff time in Beijing time and ASCII-safe team slugs.
-   - Saved files must include pick, probability ranges, likely scorelines, scoring table, evidence ledger, lineup uncertainty, key assumption, failure path, and source links.
+   - Saved files must include pick, probability ranges, likely scorelines, scoring table, evidence ledger, FIFA technical-stat weighting when relevant, lineup uncertainty, key assumption, failure path, and source links.
    - For Chinese users, write saved markdown in Chinese.
    - After writing, review the saved file for consistency across headline pick, probability leader, scorelines, scoring table, rationale, key assumption, failure path, and sources.
    - Include a narrative-probability check: "If I only read the evidence ledger and rationale, what probability band would I infer?" Fix any material conflict before responding.
@@ -109,27 +95,20 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Track primary outcome hit, likely-score hit, and calibration quality separately.
    - Do not score live or unfinished matches.
    - Explain misses through evidence gaps or weighting errors, not hindsight certainty.
-   - When a backtest shows the advancement call was right but the 90-minute pick missed, classify it as a wording/calibration error if the original evidence already supported a high draw path.
-   - If the exact or first likely scoreline hits but the headline 90-minute pick misses, classify it as a headline/probability calibration error rather than a full model miss; update wording rules so the highest-risk scoreline and probability leader are aligned.
-   - After a miss where a strong favorite advances only after a 90-minute draw, audit whether low-block discipline, goalkeeper form, and repeatable underdog outlets were underweighted. Convert that pattern into a higher draw baseline for similar knockout fixtures.
-   - After a miss where a favorite loses to an underdog with elite finishing or repeatable counters, audit whether the underdog's two-goal path was underweighted and whether a "key player available" assumption overstated the favorite's starting strength.
-   - After a hit where the favorite wins but the scoreline is too conservative, audit whether late-game acceleration, bench impact, opponent fatigue, and weak underdog outlets were underweighted. Convert that pattern into lower draw pricing or higher multi-goal paths for similar knockout fixtures.
-   - After a hit where the favorite wins but the total-goals call is too conservative, audit whether home pressure, cards, penalties, chasing state, and high-conversion attackers were underweighted. Convert that pattern into more visible 4+ goal tail probability in similar knockout fixtures.
-   - After a hit where a favorite wins by one goal against a compact low block, audit whether territorial control was mistaken for guaranteed chance volume. Convert that pattern into more 1-0/2-0 scoreline ordering for similar fixtures.
-   - Convert repeated misses into skill updates, especially for incentives, lineup uncertainty, draw pricing, overreliance on reputation, and knockout draw/penalty paths.
+   - If advancement was right but the 90-minute result missed, audit whether advancement strength leaked into the regulation-time headline.
+   - If a likely scoreline hit but the headline pick missed, classify it as a headline/probability calibration error rather than a full model miss.
+   - Convert repeated misses into explicit future probability adjustments, especially for incentives, lineup uncertainty, draw pricing, overreliance on reputation, underdog outlets, and knockout draw/penalty paths.
 
 ## Evidence Rules
 
 - Cite sources with links in the final answer.
 - If sources disagree, state the discrepancy and use the more authoritative or newer source.
-- Treat betting odds as a market signal, not proof.
-- If Polymarket data is available, treat it as a market signal with the same caution: prefer liquid, actively traded markets; use `bestBid`, `bestAsk`, `lastTradePrice`, `volume`, and `liquidity` over a raw midpoint; and discount thin or stale books.
+- Treat betting odds and Polymarket as market signals, not proof. Prefer liquid, active, match-specific markets; discount thin, stale, wide-spread, or noisy markets.
 - For 2026 World Cup use, prefer match-specific markets when they exist. If only tournament winner markets are available, use them as a broad strength check, not a substitute for match-level evidence.
-- If a Polymarket search endpoint returns noisy results, filter the returned market list locally by question, slug, and category instead of trusting search alone.
-- Do not overweight Polymarket over confirmed lineups, standings, injuries, or rotation reports. A sharp price move should trigger a re-check of those inputs, not replace them.
+- Do not overweight markets over confirmed lineups, standings, injuries, or rotation reports. A sharp price move should trigger a re-check of those inputs, not replace them.
 - Treat FIFA ranking as a baseline only; adjust for current form, injuries, matchup, and tournament context.
+- Treat FIFA official team statistics as preferred current-tournament performance evidence. Use the full row and ratios across Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical, not a single sorted column or only the Attacking tab.
 - Treat coach quality, lineup construction, and bench usage as first-class evidence, not afterthoughts.
-- Treat this-tournament performance as stronger evidence than pre-tournament reputation when both exist.
 - Treat confirmed lineups, group standings, and qualification incentives as hard constraints on probability calibration.
 - Do not present a forecast as guaranteed or as gambling advice.
 - Do not output staking sizes, Kelly fractions, or bet instructions unless the user explicitly asks for them. Even then, label them as a mathematical exercise rather than a recommendation, and keep the match prediction separate from betting execution.
@@ -157,7 +136,7 @@ For Chinese users, answer in Chinese unless asked otherwise. Saved markdown file
 - 只影响晋级而非90分钟：[要点，如加时/点球深度]
 
 首发强度/轮换不确定性：
-- [A队]：[主力程度描述，如"预计最强阵/轮换2-3人/半替补阵"]，对胜率影响 [方向和幅度]
+- [A队]：[主力程度描述]，对胜率影响 [方向和幅度]
 - [B队]：[同上]
 - 信息确定度：[已确认首发 / 可靠报道 / 纯推测]
 
@@ -168,7 +147,7 @@ For Chinese users, answer in Chinese unless asked otherwise. Saved markdown file
 4. [战术/赛程/对位证据]
 5. [爆冷或平局风险]
 
-关键假设：[最影响预测的一条前提，例如首发强度、轮换幅度、战意或伤停]
+关键假设：[最影响预测的一条前提]
 结论：[一句话总结 pick，并说明最大不确定性。]
 ```
 
@@ -181,6 +160,4 @@ For knockout matches, optionally append supplementary context after the main blo
 - 晋级概率：[A队] xx%，[B队] xx%
 ```
 
-For deeper requests, read `references/prediction-framework.md`.
-
-When writing files into `pred/`, keep the content concise and structured so each file is easy to scan later. For Chinese predictions, use Chinese markdown headings such as `## 评分`, `## 首发强度/轮换不确定性`, `## 依据`, `## 关键假设`, `## 预测失效路径`, `## 来源`, and for knockout matches also `## 淘汰赛附加`.
+When writing files into `pred/`, keep the content concise and structured so each file is easy to scan later. For Chinese predictions, use Chinese markdown headings such as `## 评分`, `## 首发强度/轮换不确定性`, `## FIFA技术统计权重`, `## 依据`, `## 关键假设`, `## 预测失效路径`, `## 来源`, and for knockout matches also `## 淘汰赛附加`.

@@ -19,7 +19,7 @@ Then convert each material factor into a directional probability adjustment. If 
 2. Incentives and match state: must-win, draw-enough, already-qualified, eliminated, goal-difference needs, likely opponent-selection incentives.
 3. Availability: confirmed lineups, injuries, suspensions, late fitness news, coach comments, credible rotation reports.
 4. Team quality: Elo/SPI-style ratings, FIFA ranking, squad market value, club level of starters, bench depth.
-5. Current performance: this-tournament results, opponent-adjusted form, xG if available, goals for/against, clean sheets, set-piece output.
+5. Current performance: this-tournament results, opponent-adjusted form, FIFA official team statistics, xG if available, goals for/against, clean sheets, set-piece output.
 6. Context: rest days, travel, climate, home-region advantage, rotation incentives.
 7. Market signal: bookmaker odds or prediction markets, especially liquid markets or sharp late moves.
 
@@ -39,15 +39,47 @@ Default 100-point rubric, aligned with `SKILL.md`:
 
 Use the score as a sanity check, not a formula. A narrow score edge should usually map to a narrow probability edge. If the score and pick diverge, explain the override.
 
+## FIFA Team Statistics
+
+For 2026 World Cup final-tournament matches, use FIFA's official team statistics page as the preferred current-tournament technical data source when available:
+
+`https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/statistics/team-statistics`
+
+Query and extraction tips:
+
+- The table is client-rendered. If `curl` or plain HTML only returns an app shell, open it in a rendered browser and read the visible page text or inspect page network data.
+- Review every visible FIFA team-statistics category before finalizing the technical-stat read: Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical. The `group` and `stat` query parameters may control the table view, but do not stop at `group=gct_attack` or any single sorted table.
+- Capture the whole row for both teams in each category that materially affects the match call, not only the currently sorted column. Attacking usually covers goals, assists, attempts at goal, attempts on target, off-target attempts, conversion rate, attempts inside/outside the penalty area, headed attempts, xG, xG efficiency, corners, and possession control; the other tabs provide the passing/progression, defensive, discipline, goalkeeping, movement, and physical context needed to interpret those attacking numbers.
+- When quoting the data, cite the FIFA statistics URL and state the access context if the page is dynamic.
+- If one team's row is missing because the page has filtered, failed to load, or the tournament data is incomplete, state the limitation and do not invent totals from article snippets.
+
+Application method:
+
+- Treat the FIFA category set as a balanced technical profile. Attacking answers chance volume and finishing; Distribution answers possession, progression, and buildup security; Defending answers pressure absorbed, duels, tackles/interceptions/blocks, and box protection; Discipline answers foul, card, suspension, penalty, and game-state volatility risk; Goalkeeping answers shot-stopping, claims, sweeping, and distribution stability; Movement answers pressing/running intensity and off-ball workload; Physical answers duel load, sprint/recovery burden, and fatigue risk.
+- Weight categories by the matchup. For example, a low-block underdog may be judged more by Defending, Goalkeeping, Discipline, and transition-related Movement than by raw Attacking; a possession favorite must support Distribution with xG and box entries; a high-pressing host needs Movement and Physical data checked against late-game fatigue and card risk.
+- Separate volume from quality. Attempts at goal and corners measure event production; attempts on target, xG, inside-box attempts, and goals measure chance quality and finishing.
+- Derive simple ratios when useful: shots-on-target rate, goals per shot, goals versus xG, xG per shot, and corners or inside-box attempts as pressure indicators.
+- Use possession control as a context stat, not an automatic win stat. Pair it with shot quality, rest defense, and opponent counter threat before moving probabilities.
+- High shot or corner volume from an underdog raises draw/upset paths, especially through set pieces and second balls, but it should not imply superiority if shot-on-target rate, xG, and possession control are weaker.
+- A favorite with better squad quality plus stronger goals, xG, shots-on-target rate, and possession control can remain a 60%+ 90-minute favorite even in a knockout match with fatigue caveats.
+- If a team has fewer shots but much better xG, shots on target, and goals, treat it as a chance-quality/finishing edge rather than underperformance in control.
+- If a team has high possession but low xG or few shots on target, treat it as a control favorite rather than a separation favorite; likely scorelines should lean 1-0/2-0/1-1 unless other evidence shows repeated big chances.
+- If a team has high xG and shot-on-target rate plus strong bench attackers, test late separation and multi-goal paths.
+- If a team has strong attacking output but weak defensive, discipline, goalkeeping, movement, or physical indicators, widen the failure path instead of treating attacking superiority as decisive.
+- If a team has modest attacking output but excellent defensive, goalkeeping, discipline, and physical indicators, raise low-event draw/clean-sheet resistance even if it trails in the Attacking tab.
+- Always combine official team statistics with opponent-adjusted context. A strong row built mostly against weak opponents should be discounted; a modest row against elite opponents may still be resilient.
+
 Optional sub-factors:
 
 - Squad quality: starting XI, first-impact substitutes, positional cover, goalkeeper and center-back reliability.
 - Tactical matchup: low-block breaking, chance conversion, set pieces, transition defense, aerial duels, pressing resistance.
 - Coaching/game management: default shape, pressing triggers, substitution timing, rotation choices, penalty/extra-time handling.
 - Match-state reliability: defensive error tendency, control after scoring first, ability to protect a draw, late-game concentration.
+- Technical-stat profile: Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical, including goals, attempts at goal, attempts on target, xG, shot quality, possession control, progression, defensive concessions, card/foul risk, shot-stopping, running intensity, physical load, inside-box attempts, corners, and set-piece pressure.
 - Favorite separation: early chance creation, field tilt, opponent ball retention, whether the underdog can create repeatable counters, and whether an early favorite goal forces the underdog into a weaker game state.
 - Favorite type: separate "separation favorites" from "control favorites." Separation favorites can turn pressure into multiple high-quality chances through transition speed, bench impact, and opponent fatigue or poor outlets. Control favorites may dominate territory but still need a penalty, set piece, or one elite action against a compact block.
 - Underdog threat type: separate "resistance underdogs" from "punch underdogs." Resistance underdogs mostly block shots and survive; punch underdogs have a repeatable scorer-creator outlet, transition runner, or set-piece mismatch that can produce two goals without much possession. Punch underdogs need a higher win tail, not just a higher draw baseline.
+- Prestige-underdog profile: identify teams that are priced or framed as underdogs mainly because of venue, fatigue, or recent volatility but still have elite match-winners. A creator or first-pass outlet, wide ball-carrier, box finisher, and shot-stopping goalkeeper can turn a slight favorite's pressing plan into a high-loss-tail game.
 - Event volatility: identify whether a matchup is likely to stay low-event or become high-event through home pressure, altitude fatigue, referee strictness, cards, penalties, forced chasing, or both sides having high-conversion attackers.
 
 For group-stage finales, make incentives visible in the score. If useful, move 5-10 points of weight from squad/tactics into context/motivation to reflect qualification status, draw incentives, rotation, cards, and minute management.
@@ -89,7 +121,11 @@ Favorite guardrails:
 - Strong home host adjustment: in true home knockout conditions with no major host lineup downgrade and at least solid current form, consider adding roughly 3-7 points to the host's 90-minute win probability. Use the lower end for disciplined, low-block opponents; use the higher end when the host has early-pressure weapons and the opponent shows defensive fragility.
 - Star availability adjustment: if a key favorite attacker or creator is only bench-available or minutes-limited, subtract from early scoring/control and consider moving 2-5 points out of the favorite's 90-minute win range unless the replacement structure has already performed. Keep the late substitute benefit mainly in comeback and advancement discussion.
 - Punch-underdog adjustment: if the underdog has a world-class finisher plus a reliable creator, strong wide delivery, or set-piece supply, test whether its win probability should rise by 3-6 points over a generic underdog baseline. This is especially important when the favorite has weak rest defense, vulnerable fullbacks, or a habit of losing control late.
+- Prestige-underdog adjustment: if a nominal underdog has several elite single-action players across creation, ball carrying, finishing, and goalkeeping, do not contain that edge inside the draw bucket. Move probability into the underdog win range and include 1-2, 1-3, or 1-4 tails when the favorite's game plan requires aggressive pressing or chasing after a first concession.
 - High-event total adjustment: when the evidence supports home pressure, altitude fatigue, referee strictness, cards, penalties, forced chasing, or unusually efficient finishers, do not over-anchor on 1-1/2-1 merely because it is a knockout match. Include a 2-2, 3-2, 2-3, or 3-1 tail if coherent with the probability table.
+- Control-favorite 1-0 adjustment: in elite knockout matches where the favorite's edge is field tilt, counter-pressing, and territory but the opponent still has enough defensive quality to block the box, include 1-0 before defaulting to 1-1. Require actual evidence of repeatable underdog chance creation before making both-teams-to-score a core assumption.
+- Official-stat favorite adjustment: if the favorite has a clear squad and coaching edge and also leads the opponent materially across the relevant FIFA categories, especially goals, xG, shots-on-target rate, distribution/progression, defensive stability, discipline, goalkeeping, movement, and physical sustainability, do not let generic knockout caution or a single difficult previous match pull the 90-minute win range below moderate-favorite territory unless lineups, injuries, or tactical mismatch justify it.
+- Volume-underdog adjustment: if the underdog has similar or higher attempts/corners but weaker xG and shots-on-target rate, keep its set-piece and draw path visible without treating shot volume as equal attacking quality.
 - Advancement leakage check: do not convert a favorite's superior bench, extra-time strength, penalty takers, or goalkeeper penalty reputation into 90-minute win probability unless it changes regulation-time tactics. Those factors belong primarily in the advancement section.
 - Strong favorite retest: before assigning 70%+ in a knockout match, ask whether the underdog has already held strong opponents level, has a goalkeeper in high form, and has at least one repeatable counter or set-piece outlet. If yes, retest a 60%-66% favorite range and include 1-1 unless current lineup or chance-creation evidence clearly breaks that path.
 
@@ -108,6 +144,7 @@ Keep 90-minute result separate from advancement.
 - If the underdog's repeatable threat includes an elite finisher and credible service, model both 1-goal and 2-goal upset paths. A favorite can be the better team yet still deserve a materially lower win range if it cannot suppress that outlet for 90 minutes.
 - Host advantage is not automatically a draw booster. In true home-host knockout matches, test whether the host's crowd and fast start raise upset probability or whether the stronger opponent's late-game quality is more likely to produce separation after the first hour.
 - Host pressure is not automatically an under. If a host crowd and altitude create frantic pressing, long stoppages, cards, penalties, or repeated set pieces, the match can become high-event despite knockout incentives.
+- Host or home-region pressure can also become a favorite fragility. If the host's edge depends on early pressing and fullback width, model the post-concession state: crowd pressure, chasing, and exposed rest defense can shift probability from draw into opponent win and multi-goal opponent tails.
 - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
 - If favorite win is below roughly 50%, draw is close to 30%, and the favorite's advancement probability is materially higher, write the call as "90-minute draw/toss-up, favorite to advance" rather than compressing both ideas into a favorite 90-minute pick.
 - If the favorite win is 65%+ but the most plausible miss path is 1-1 after a low-event regulation match, include 1-1 as a secondary likely scoreline or explain why the current evidence makes that path weak.
@@ -117,6 +154,10 @@ Keep 90-minute result separate from advancement.
 
 Favorite vs underdog:
 
+- What do FIFA team statistics say across Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical?
+- Do the non-attacking categories confirm or weaken the attacking story?
+- Is the favorite's edge supported by both squad quality and current-tournament technical data?
+- Is the underdog's attacking case based on shot volume, shot quality, set pieces, or elite transition finishers?
 - Can the favorite break a low block without overcommitting?
 - Does the underdog have counter pace, set-piece threat, or aerial advantage?
 - Are the favorite's fullbacks vulnerable behind the line?
@@ -124,14 +165,18 @@ Favorite vs underdog:
 - Can the favorite's bench change the game after 60 minutes?
 - Does the underdog have more than one viable game state?
 - Is the underdog a resistance underdog or a punch underdog?
+- Is the underdog only nominally weaker because of venue, fatigue, or market framing, while still having a creator-runner-finisher-goalkeeper spine?
 - Is the favorite's key availability actually starting strength, or only bench/late-game strength?
+- If the favorite concedes first, does its pressing structure become a strength or a liability?
 
 Two strong teams:
 
+- Compare official technical profiles before leaning on reputation: attacking output, distribution/progression, defensive concessions, discipline risk, goalkeeping, movement, physical load, possession control, xG, shots on target, shot quality, and set-piece volume.
 - Separate midfield control from chance creation.
 - Compare goalkeeper and center-back error risk.
 - Check whether either coach is likely to rotate or protect players.
 - Decide whether the game is likely to be low-event control or high-event tradeoffs before choosing likely scorelines.
+- If one team has control without clear chance volume and the other has limited sustained outlets, test 1-0 before 1-1.
 - Treat extra time and penalties separately from 90-minute superiority.
 
 Group-stage finale:
@@ -175,6 +220,9 @@ Search hygiene:
 ## Red Flags
 
 - Predicting from FIFA ranking alone.
+- Sorting FIFA team statistics by one column, or reading only the Attacking tab, and treating that as the whole story.
+- Treating attempts at goal or possession control alone as dominance without checking shots on target, xG, inside-box attempts, and opponent strength.
+- Ignoring official current-tournament team statistics when they are available and directly relevant.
 - Ignoring group/knockout format, standings, incentives, or rotation.
 - Treating one blowout as full proof of team level.
 - Using stale injury or lineup information.
@@ -201,8 +249,10 @@ For saved predictions in `pred/`:
 - If a likely scoreline hits but the headline pick misses, mark it as a headline/probability calibration error. The model saw the match shape, but the final wording and probability leader did not respect it.
 - If a strong favorite only advances after a 90-minute draw, audit underweighted low-block discipline, goalkeeper shot-stopping, and repeatable underdog outlets before blaming variance.
 - If the favorite wins but by fewer goals than expected, audit whether territorial control was mistaken for chance volume; adjust future scoreline ordering toward 1-0/2-0 when the underdog can block the box but not threaten often.
+- If a control favorite wins 1-0, audit whether both-teams-to-score was overused because both squads had reputation quality rather than because the underdog had repeatable chance creation.
 - If the favorite wins by more than expected after a close first half, audit late-game acceleration, bench impact, fatigue, and underdog outlet quality; adjust future draw pricing downward when similar evidence shows the underdog cannot survive sustained second-half pressure.
 - If a favorite loses to an underdog with a world-class finisher or clear supply line, audit whether the model treated that outlet as draw risk rather than win risk, and whether the favorite's starter availability was overstated.
+- If a home or slight favorite loses heavily after conceding first, audit whether the model underpriced pressing dependency, fullback exposure, chasing-state volatility, and the opponent's high-ceiling spine.
 - If total goals are materially higher than forecast, audit whether cards, penalties, home pressure, forced chasing, and high-conversion attackers were underweighted; adjust future scoreline tails before changing the primary win/draw/loss model.
 - Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
 - Convert repeated errors into explicit future probability adjustments.
