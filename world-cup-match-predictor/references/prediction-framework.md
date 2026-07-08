@@ -78,9 +78,9 @@ Optional sub-factors:
 - Technical-stat profile: Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical, including goals, attempts at goal, attempts on target, xG, shot quality, possession control, progression, defensive concessions, card/foul risk, shot-stopping, running intensity, physical load, inside-box attempts, corners, and set-piece pressure.
 - Favorite separation: early chance creation, field tilt, opponent ball retention, whether the underdog can create repeatable counters, and whether an early favorite goal forces the underdog into a weaker game state.
 - Favorite type: separate "separation favorites" from "control favorites." Separation favorites can turn pressure into multiple high-quality chances through transition speed, bench impact, and opponent fatigue or poor outlets. Control favorites may dominate territory but still need a penalty, set piece, or one elite action against a compact block.
-- Underdog threat type: separate "resistance underdogs" from "punch underdogs." Resistance underdogs mostly block shots and survive; punch underdogs have a repeatable scorer-creator outlet, transition runner, or set-piece mismatch that can produce two goals without much possession. Punch underdogs need a higher win tail, not just a higher draw baseline.
-- Prestige-underdog profile: identify teams that are priced or framed as underdogs mainly because of venue, fatigue, or recent volatility but still have elite match-winners. A creator or first-pass outlet, wide ball-carrier, box finisher, and shot-stopping goalkeeper can turn a slight favorite's pressing plan into a high-loss-tail game.
-- Event volatility: identify whether a matchup is likely to stay low-event or become high-event through home pressure, altitude fatigue, referee strictness, cards, penalties, forced chasing, or both sides having high-conversion attackers.
+- Underdog threat type: separate "resistance underdogs" from "punch underdogs." Resistance underdogs mostly block shots and survive; punch underdogs have a repeatable scorer-creator outlet, transition runner, or set-piece mismatch that can produce two goals without much possession. If the favorite also shows control fragility, exposed fullbacks, or panic defending, move risk into underdog win and 4+ goal tails, not only into draw.
+- Prestige-underdog profile: identify nominal underdogs with elite single-action players across creation, carrying, finishing, and goalkeeping; they can turn a slight favorite's aggressive plan into a high-loss-tail game.
+- Event volatility: identify whether home pressure, altitude fatigue, referee strictness, cards, penalties, forced chasing, control fragility, or high-conversion attackers push the match toward 4+ goal tails.
 
 For group-stage finales, make incentives visible in the score. If useful, move 5-10 points of weight from squad/tactics into context/motivation to reflect qualification status, draw incentives, rotation, cards, and minute management.
 
@@ -104,6 +104,7 @@ Draw guardrails:
 - If the evidence ledger or failure path already gives a concrete route to 0-0 or 1-1 through compact defending, a high-performing goalkeeper, set pieces, and counters, the draw must appear in both the probability table and likely scorelines. Treat this as a model input, not a prose disclaimer.
 - If both teams benefit from a draw, start near 30% and adjust for tactics, defensive reliability, and market signal.
 - If both teams can accept a draw and lineups/shapes are conservative, make 0-0 a live scoreline, not just 1-1.
+- In knockout matches where both sides defend well, neither side has a confirmed full-strength finisher, and chance-quality evidence is modest, explicitly test 0-0 as a primary or secondary scoreline. Do not default to 1-1 merely because both teams have reputable attackers.
 
 When guardrails point in opposite directions, use the evidence ledger to decide the net effect. For example, true home advantage and opponent defensive absences can lower the draw from the generic knockout range, while elite low-block discipline or a strong goalkeeper can offset those favorite-side factors.
 
@@ -120,7 +121,7 @@ Favorite guardrails:
 - Control-not-volume adjustment: if the favorite's edge is mostly possession, territory, and individual quality against a disciplined low block with a strong goalkeeper, do not assume multi-goal dominance. Keep the win probability healthy, but order likely scores around 1-0/2-0/1-1 unless evidence shows repeatable big-chance creation.
 - Strong home host adjustment: in true home knockout conditions with no major host lineup downgrade and at least solid current form, consider adding roughly 3-7 points to the host's 90-minute win probability. Use the lower end for disciplined, low-block opponents; use the higher end when the host has early-pressure weapons and the opponent shows defensive fragility.
 - Star availability adjustment: if a key favorite attacker or creator is only bench-available or minutes-limited, subtract from early scoring/control and consider moving 2-5 points out of the favorite's 90-minute win range unless the replacement structure has already performed. Keep the late substitute benefit mainly in comeback and advancement discussion.
-- Punch-underdog adjustment: if the underdog has a world-class finisher plus a reliable creator, strong wide delivery, or set-piece supply, test whether its win probability should rise by 3-6 points over a generic underdog baseline. This is especially important when the favorite has weak rest defense, vulnerable fullbacks, or a habit of losing control late.
+- Punch-underdog / favorite-collapse adjustment: if the underdog has a world-class finisher plus reliable creation, wide delivery, or set-piece supply, raise its win probability 3-6 points over a generic baseline. If the favorite also shows repeated control failures, weak transition defense, or panic defending, test a further 2-4 point move from favorite/draw into underdog win plus a 2-2, 3-2, or 2-3 tail.
 - Prestige-underdog adjustment: if a nominal underdog has several elite single-action players across creation, ball carrying, finishing, and goalkeeping, do not contain that edge inside the draw bucket. Move probability into the underdog win range and include 1-2, 1-3, or 1-4 tails when the favorite's game plan requires aggressive pressing or chasing after a first concession.
 - High-event total adjustment: when the evidence supports home pressure, altitude fatigue, referee strictness, cards, penalties, forced chasing, or unusually efficient finishers, do not over-anchor on 1-1/2-1 merely because it is a knockout match. Include a 2-2, 3-2, 2-3, or 3-1 tail if coherent with the probability table.
 - Control-favorite 1-0 adjustment: in elite knockout matches where the favorite's edge is field tilt, counter-pressing, and territory but the opponent still has enough defensive quality to block the box, include 1-0 before defaulting to 1-1. Require actual evidence of repeatable underdog chance creation before making both-teams-to-score a core assumption.
@@ -147,7 +148,7 @@ Keep 90-minute result separate from advancement.
 - Host or home-region pressure can also become a favorite fragility. If the host's edge depends on early pressing and fullback width, model the post-concession state: crowd pressure, chasing, and exposed rest defense can shift probability from draw into opponent win and multi-goal opponent tails.
 - If favorite win is below roughly 50% and draw is 30%+, list a draw scoreline first or co-first unless there is strong evidence the game will open.
 - If favorite win is below roughly 50%, draw is close to 30%, and the favorite's advancement probability is materially higher, write the call as "90-minute draw/toss-up, favorite to advance" rather than compressing both ideas into a favorite 90-minute pick.
-- If the favorite win is 65%+ but the most plausible miss path is 1-1 after a low-event regulation match, include 1-1 as a secondary likely scoreline or explain why the current evidence makes that path weak.
+- If the favorite win is 65%+ but the most plausible miss path is a low-event draw, include 1-1 or 0-0 as a secondary likely scoreline according to chance quality, finisher availability, and goalkeeper form; otherwise explain why the path is weak.
 - Add advancement context only after the 90-minute table. Mention goalkeeper penalty record, designated takers, rest days, prior minutes, and squad depth for 120 minutes when relevant.
 
 ## Matchup Checklists
@@ -176,7 +177,7 @@ Two strong teams:
 - Compare goalkeeper and center-back error risk.
 - Check whether either coach is likely to rotate or protect players.
 - Decide whether the game is likely to be low-event control or high-event tradeoffs before choosing likely scorelines.
-- If one team has control without clear chance volume and the other has limited sustained outlets, test 1-0 before 1-1.
+- If one team has control without clear chance volume and the other has limited sustained outlets, test 1-0 before 1-1; if both teams defend well and a key finisher is absent or limited, test 0-0 before assuming both teams score.
 - Treat extra time and penalties separately from 90-minute superiority.
 
 Group-stage finale:
@@ -248,12 +249,12 @@ For saved predictions in `pred/`:
 - If advancement is correct but the 90-minute result is a draw, check whether the original wording overpromoted the advancement edge into the 90-minute headline.
 - If a likely scoreline hits but the headline pick misses, mark it as a headline/probability calibration error. The model saw the match shape, but the final wording and probability leader did not respect it.
 - If a strong favorite only advances after a 90-minute draw, audit underweighted low-block discipline, goalkeeper shot-stopping, and repeatable underdog outlets before blaming variance.
-- If the favorite wins but by fewer goals than expected, audit whether territorial control was mistaken for chance volume; adjust future scoreline ordering toward 1-0/2-0 when the underdog can block the box but not threaten often.
-- If a control favorite wins 1-0, audit whether both-teams-to-score was overused because both squads had reputation quality rather than because the underdog had repeatable chance creation.
+- If the favorite wins by fewer goals than expected, audit whether territorial control was mistaken for chance volume; adjust scoreline ordering toward 1-0/2-0 when the underdog can block the box but not threaten often.
+- If the model overuses both-teams-to-score, audit whether it relied on squad reputation rather than repeatable chance creation, and whether defensive records, missing finishers, poor shot quality, or cautious knockout incentives supported 0-0/1-0 instead.
 - If the favorite wins by more than expected after a close first half, audit late-game acceleration, bench impact, fatigue, and underdog outlet quality; adjust future draw pricing downward when similar evidence shows the underdog cannot survive sustained second-half pressure.
 - If a favorite loses to an underdog with a world-class finisher or clear supply line, audit whether the model treated that outlet as draw risk rather than win risk, and whether the favorite's starter availability was overstated.
 - If a home or slight favorite loses heavily after conceding first, audit whether the model underpriced pressing dependency, fullback exposure, chasing-state volatility, and the opponent's high-ceiling spine.
-- If total goals are materially higher than forecast, audit whether cards, penalties, home pressure, forced chasing, and high-conversion attackers were underweighted; adjust future scoreline tails before changing the primary win/draw/loss model.
+- If total goals are materially higher than forecast, audit underweighted cards, penalties, home pressure, forced chasing, high-conversion attackers, and punch-underdog transition paths; adjust scoreline tails before changing the primary win/draw/loss model, and move 2-4 points into underdog win when the route was treated as draw-only risk.
 - Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
 - Convert repeated errors into explicit future probability adjustments.
 

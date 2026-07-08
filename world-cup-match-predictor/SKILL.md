@@ -42,7 +42,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Interpret volume and quality separately. Shot/corner volume can create draw or upset paths, but shots on target, xG, inside-box attempts, possession control, defensive concessions, discipline, goalkeeping, running profile, and physical load determine how strong those paths are.
    - For tactics, check pressing resistance, set pieces, transition defense, aerial duels, pace, goalkeeper reliability, control after taking the lead, and whether either side must chase the game.
    - For favorites, test whether control can become separation: early chance creation, field tilt, opponent ball retention, bench impact, and whether an early goal forces the underdog out of its preferred plan.
-   - For underdogs, separate resistance from punch. A team with only blocks and saves mostly raises draw risk; a team with repeatable creator-runner-finisher, set-piece, or counter outlets also raises win probability and multi-goal tails.
+   - For underdogs, separate resistance from punch. A team with only blocks and saves mostly raises draw risk; a team with repeatable creator-runner-finisher, set-piece, or counter outlets raises win probability and multi-goal tails, especially against favorites with recent control or defensive-management problems.
    - For host or home-region matches, treat crowd, altitude/climate, referee tempo, cards, penalties, and forced chasing as probability drivers when supported by evidence.
    - Keep head-to-head secondary unless the current matchup pattern is unusually stable and well supported.
    - Treat current-tournament evidence as stronger than pre-tournament reputation once the tournament has started.
@@ -70,7 +70,8 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Split favorites into "separation favorites" and "control favorites" before choosing scorelines. Separation favorites can justify 2-0/3-0/3-1 paths; control favorites against compact blocks often fit 1-0/2-0/1-1 better.
    - Do not overprice generic knockout draws when current evidence shows sustained favorite chance creation, weak underdog outlets, defensive-spine absences, or late-game separation.
    - Do not underprice draw/upset paths when the underdog has low-block discipline, strong goalkeeping, set pieces, repeatable counters, or elite single-action attackers.
-   - For volatile matches, keep 4+ goal tails visible when cards, penalties, forced chasing, vulnerable fullbacks, aerial mismatches, or high-conversion attackers support them.
+   - For volatile matches, keep 4+ goal tails visible when cards, penalties, forced chasing, vulnerable fullbacks, aerial mismatches, favorite control failures, or high-conversion attackers support them.
+   - For low-event knockout matches with strong defensive results, cautious game states, missing or limited finishers, and no clear chance-volume edge, explicitly test 0-0 alongside 1-1 before ordering scorelines.
    - For group finales, cap confidence when a stronger team has advanced or has strong rotation incentives. Avoid a clear-favorite probability above 55% without lineup and motivation support.
 
 6. Handle knockout matches.
@@ -97,6 +98,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Explain misses through evidence gaps or weighting errors, not hindsight certainty.
    - If advancement was right but the 90-minute result missed, audit whether advancement strength leaked into the regulation-time headline.
    - If a likely scoreline hit but the headline pick missed, classify it as a headline/probability calibration error rather than a full model miss.
+   - If the result class was right but goal total was wrong, audit overused both-teams-to-score, underweighted 0-0 conditions, or underweighted punch-underdog/high-event volatility.
    - Convert repeated misses into explicit future probability adjustments, especially for incentives, lineup uncertainty, draw pricing, overreliance on reputation, underdog outlets, and knockout draw/penalty paths.
 
 ## Evidence Rules
