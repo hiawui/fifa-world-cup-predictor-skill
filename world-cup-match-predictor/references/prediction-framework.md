@@ -21,7 +21,7 @@ Then convert each material factor into a directional probability adjustment. If 
 4. Team quality: Elo/SPI-style ratings, FIFA ranking, squad market value, club level of starters, bench depth.
 5. Current performance: this-tournament results, opponent-adjusted form, FIFA official team statistics, xG if available, goals for/against, clean sheets, set-piece output.
 6. Context: rest days, travel, climate, home-region advantage, rotation incentives.
-7. Market signal: bookmaker odds or prediction markets, especially liquid markets or sharp late moves.
+7. Market signal: bookmaker odds or prediction markets, especially liquid match-specific markets or sharp late moves. This is a calibration layer below personnel configuration, availability, tactical matchup, and historical/current technical statistics.
 
 When the match is a knockout fixture in a host nation's true home venue, split home advantage into concrete pieces: crowd pressure, familiar pitch/stadium, climate or altitude adaptation, travel burden, referee/tempo pressure, and likelihood of a fast start. Treat supported factors as probability drivers, not only narrative context.
 
@@ -191,30 +191,40 @@ Group-stage finale:
 
 ## Polymarket Usage
 
-Use Polymarket only as market signal. It is not a source for fixtures, lineups, injuries, standings, or final results.
+Use Polymarket only as market signal. It is not a source for fixtures, lineups, injuries, standings, final results, or tactical truth. Personnel configuration, lineup strength, availability, and historical/current technical statistics remain the primary judgment basis.
+
+For 2026 World Cup matches, start with the Polymarket World Cup hub when a match-specific market may exist:
+
+`https://polymarket.com/sports/world-cup`
+
+This page can expose match cards that API keyword filtering may miss. Capture the visible match card or linked match page before concluding no match-specific market exists.
 
 When available, capture:
 
 - question, slug, market id, outcomes
 - bestBid, bestAsk, lastTradePrice or outcomePrices
 - volume, liquidity, active/closed status, update timestamp when available
+- visible World Cup hub data when API details are unavailable: match name, kickoff display, 90-minute moneyline/reg-time prices, volume, spread/handicap, total-goals line, and linked URL
 
 Use hierarchy:
 
 1. Liquid match-specific 90-minute markets.
 2. Liquid advancement markets, only for "to advance" context.
 3. Tournament-winner markets, only as broad strength/public-pricing checks.
+4. Props, spread/handicap, totals, and combo cards, only as supporting shape/context signals. Do not let them override win/draw/loss analysis.
 
 Data quality checks:
 
 - Prefer meaningful liquidity, recent trading, and narrow spreads.
 - Treat low-liquidity, stale, wide-spread, or one-sided markets as weak evidence.
 - Check market resolution rules before converting prices into probabilities.
-- If a liquid market strongly disagrees with the model, re-check lineups, injuries, incentives, weather, and rules first. If still unexplained, widen the probability band rather than blindly adopting the market.
+- If a liquid market strongly disagrees with the model, re-check lineups, injuries, suspensions, rotation, tactical matchup, technical-stat profile, incentives, weather, and rules first. If still unexplained, widen the probability band rather than blindly adopting the market.
+- Keep market-derived adjustments modest unless the market disagreement is explained by a real football input. As a rule of thumb, a liquid match-specific 90-minute market can move a model range a few points or validate a probability band; it should not overturn a personnel/statistics-led view by itself.
 
 Search hygiene:
 
-- If search is noisy, pull a bounded market/event list and locally filter `question`, `slug`, and `category`.
+- Check `https://polymarket.com/sports/world-cup` directly for visible match cards and linked match pages.
+- If browser extraction is possible, read the visible page text for the target match and capture the displayed prices/volume. If only API access is available, pull a bounded market/event list and locally filter `question`, `slug`, and `category`.
 - Filter first by football keywords, then exact team names/aliases, then market type, liquidity, and recency.
 - If no match-specific market exists, state that limitation or omit Polymarket.
 

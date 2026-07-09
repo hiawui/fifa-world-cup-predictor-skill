@@ -26,7 +26,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
 2. Gather current evidence.
    - Browse before predicting. Do not rely on memory for squads, injuries, standings, lineups, odds, results, or form.
    - Prefer official FIFA pages, federations, match centers, injury/team reports, odds aggregators, and established sports outlets.
-   - Use at least two source types when available, usually official/schedule data plus performance, availability, or market data.
+   - Use at least two source types when available, usually official/schedule data plus performance and availability data. Market data, including Polymarket, is a secondary reference layer and must not replace personnel, lineup-strength, tactical, or technical-stat analysis.
    - For current-tournament team performance, use FIFA official team statistics when available before relying on article summaries. Start from `https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/statistics/team-statistics`, then review every visible team-statistics category: Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical. Do not base the technical-stat read only on Attacking.
    - FIFA team statistics pages are dynamic; if plain HTML only shows an app shell, use a rendered browser read of visible page text or page requests. Capture the relevant full row for each team across category tabs rather than hand-copying one headline stat.
    - Within roughly 90 minutes of kickoff, look for confirmed lineups or reliable lineup reports before making a strong pick.
@@ -35,7 +35,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
 
 3. Build an evidence-first case.
    - Establish incentives before team strength: qualification status, draw incentives, goal difference, rotation, and whether either side is eliminated. Do not equate eliminated with unmotivated; check pride, young players, coach pressure, and showcase incentives.
-   - Compare squad quality, current-tournament form, tactics, coaching/game management, availability, rest/travel/weather, and market movement.
+   - Compare squad quality, current-tournament form, tactics, coaching/game management, availability, rest/travel/weather, and market movement. Treat personnel configuration and historical/current technical statistics as the main judgment basis; use market movement only as a calibration check or discrepancy flag.
    - Break squad quality into starting XI, first-impact substitutes, bench depth by position, and the main creator, scorer, holding midfielder, center-back, and goalkeeper.
    - Treat "available" and "match-fit starter" as different availability states. Downgrade starting-XI strength when key players are bench-only, minutes-limited, or returning from injury.
    - Use official team statistics as a performance layer, not a replacement for matchup analysis. Weight Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical by match relevance.
@@ -106,8 +106,9 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
 - Cite sources with links in the final answer.
 - If sources disagree, state the discrepancy and use the more authoritative or newer source.
 - Treat betting odds and Polymarket as market signals, not proof. Prefer liquid, active, match-specific markets; discount thin, stale, wide-spread, or noisy markets.
+- For Polymarket World Cup pages, start with `https://polymarket.com/sports/world-cup` when a direct match market may exist. Capture the visible match card or linked match page first, especially 90-minute moneyline/reg-time prices, volume, spread/handicap, total-goals, and any relevant player-prop context. Use Gamma/API filtering as fallback or cross-check, not as the only discovery path.
 - For 2026 World Cup use, prefer match-specific markets when they exist. If only tournament winner markets are available, use them as a broad strength check, not a substitute for match-level evidence.
-- Do not overweight markets over confirmed lineups, standings, injuries, or rotation reports. A sharp price move should trigger a re-check of those inputs, not replace them.
+- Do not overweight markets over confirmed lineups, standings, injuries, rotation reports, squad construction, tactical matchup, or historical/current technical statistics. A sharp price move should trigger a re-check of those inputs, not replace them.
 - Treat FIFA ranking as a baseline only; adjust for current form, injuries, matchup, and tournament context.
 - Treat FIFA official team statistics as preferred current-tournament performance evidence. Use the full row and ratios across Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical, not a single sorted column or only the Attacking tab.
 - Treat coach quality, lineup construction, and bench usage as first-class evidence, not afterthoughts.
