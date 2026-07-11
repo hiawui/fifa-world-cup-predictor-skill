@@ -92,6 +92,8 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Use read-only subagents for this review when available; otherwise review manually.
 
 8. Backtest saved predictions when requested.
+   - Treat every file under `pred/` as an immutable pre-match record during review. Never edit, rewrite, append to, rename, or otherwise modify a `pred/` file while backtesting or reviewing it.
+   - Return the review in the conversation. Write it elsewhere only when the user explicitly requests a separate output file, and never place that review file under `pred/`.
    - Compare primary 90-minute pick, predicted probability, likely scorelines, and actual result.
    - Track primary outcome hit, likely-score hit, and calibration quality separately.
    - Do not score live or unfinished matches.

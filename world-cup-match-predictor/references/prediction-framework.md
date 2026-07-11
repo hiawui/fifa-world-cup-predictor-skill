@@ -252,6 +252,8 @@ Search hygiene:
 
 For saved predictions in `pred/`:
 
+- Treat `pred/` as an immutable prediction ledger during backtesting. Read files from it, but never edit, rewrite, append to, rename, or create review artifacts in that directory.
+- Deliver backtest findings in the conversation unless the user explicitly requests a separate output file outside `pred/`.
 - Count only completed matches.
 - Verify final score from official/match-center sources and read at least one match report or live text.
 - Track primary 90-minute outcome, likely-score hit, and calibration quality separately.
