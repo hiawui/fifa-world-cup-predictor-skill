@@ -2,6 +2,15 @@
 
 Use this reference for deeper or high-stakes match calls. `SKILL.md` is the operating workflow; this file is the calibration and checklist layer.
 
+## Contents
+
+- Evidence ledger and priority
+- Confirmed-lineup repricing gate
+- Scoring, FIFA statistics, and probability calibration
+- Knockout calibration and matchup checklists
+- Polymarket usage and red flags
+- Backtesting and final consistency check
+
 ## Evidence Ledger
 
 Build the ledger before probabilities:
@@ -26,6 +35,23 @@ Then convert each material factor into a directional probability adjustment. If 
 When the match is a knockout fixture in a host nation's true home venue, split home advantage into concrete pieces: crowd pressure, familiar pitch/stadium, climate or altitude adaptation, travel burden, referee/tempo pressure, and likelihood of a fast start. Treat supported factors as probability drivers, not only narrative context.
 
 For availability, distinguish confirmed starter, expected starter, bench-available, minutes-limited, and emergency-only. A star who is only available from the bench improves late-game options, but may reduce early chance creation, pressing cohesion, and first-hour control relative to a full-strength XI.
+
+## Confirmed-Lineup Repricing Gate
+
+Run this gate when official lineups arrive, especially for knockout matches and contests between strong teams. A pre-lineup forecast may remain the baseline, but the final probability leader and scoreline order must reflect the confirmed structure.
+
+1. Map the central structure by role, not formation label: holding midfielders, press-resistant controllers, advancing eights or tens, and which forwards reliably recover into midfield. Test whether one side will defend three central progression options with only two consistent midfield defenders.
+2. Map each elite winger or wide creator against the starting fullback, covering center-back, and nearest holding midfielder. Treat a repeatable one-on-one, recovery-speed, foul, penalty, or transition mismatch as a win-probability input rather than a generic danger note.
+3. Re-estimate each team's zero-goal probability. If one side combines strong defensive suppression with a credible scoring route, allocate the opponent's reduced scoring expectation across draws and clean-sheet wins instead of moving it all into the draw bucket.
+4. Re-score tactical matchup and coaching/game management. Reward a concrete plan, role balance, and demonstrated adaptation; do not let coach reputation or squad depth silently reverse a confirmed structural disadvantage.
+5. Reorder likely scorelines after the probability move. If a clean-sheet win becomes a first-order route, include 1-0 or 2-0 in the top two or three rather than hiding it in a long correct-score table.
+
+Use these as starting-point stress tests, not automatic arithmetic:
+
+- If a confirmed two-player midfield base must cover three repeatable central progression roles while also supporting four attack-first players, test moving roughly 4-6 percentage points out of that team's 90-minute win probability unless fullback inversion, forward recovery, or a proven pressing mechanism restores parity.
+- If an elite winger repeatedly isolates a clearly weaker or slower fullback and the covering center-back or holding midfielder cannot reliably help, test adding roughly 3-5 points to the winger's team's win probability, with explicit penalty, first-goal, and two-goal-win paths.
+- Do not sum overlapping adjustments mechanically. A midfield overload may be the reason the fullback is left isolated. For two descriptions of the same structural cause, a combined move of roughly 5-8 points is usually the appropriate stress-test range; exceed it only with additional independent evidence such as a confirmed defensive-spine absence.
+- If confirmed lineups do not materially change the pre-match assumptions, say so and retain the prior ranges rather than manufacturing movement.
 
 ## Scoring Rubric
 
@@ -129,10 +155,22 @@ Favorite guardrails:
 - Volume-underdog adjustment: if the underdog has similar or higher attempts/corners but weaker xG and shots-on-target rate, keep its set-piece and draw path visible without treating shot volume as equal attacking quality.
 - Advancement leakage check: do not convert a favorite's superior bench, extra-time strength, penalty takers, or goalkeeper penalty reputation into 90-minute win probability unless it changes regulation-time tactics. Those factors belong primarily in the advancement section.
 - Strong favorite retest: before assigning 70%+ in a knockout match, ask whether the underdog has already held strong opponents level, has a goalkeeper in high form, and has at least one repeatable counter or set-piece outlet. If yes, retest a 60%-66% favorite range and include 1-1 unless current lineup or chance-creation evidence clearly breaks that path.
+- Defensive-suppression allocation: when one side has repeatedly limited strong opponents' shots on target and xG, first lower the opponent's goal distribution, then decide whether the removed probability belongs to 0-0, 1-0, or 2-0 based on the suppressing side's own scoring route. Do not treat elite defending as draw evidence by default.
+- Tactical-score override check: if the tactical score favors one team but squad or coaching scores make the other team the probability leader, state the concrete override. Reputation, nominal depth, or past trophies are not sufficient by themselves.
 
 ## Knockout Calibration
 
 Keep 90-minute result separate from advancement.
+
+### Regulation-Time Separation Gate
+
+Run this gate before finalizing every knockout headline, probability table, and scoreline order:
+
+1. Label each late-game factor as affecting minutes 75-90, extra time, penalties, or more than one phase. Bench depth can raise the 90-minute win probability only when the expected substitution timing, role, and regulation-time matchup explain how it creates separation.
+2. Remove factors that apply only after 90 minutes and re-read the evidence ledger. If the 90-minute headline or probability leader no longer holds, rewrite the primary forecast and keep the advancement edge in the supplementary section.
+3. If the draw is at or above roughly 28% and 0-0 or 1-1 is a top-two scoreline, describe the draw as a co-primary path. When the favorite is below 50% and has a materially larger advancement edge, prefer "90-minute draw/toss-up, favorite to advance."
+4. If both leading scorelines give the underdog zero goals while the ledger identifies a repeatable counter, set-piece, creator-finisher, or favorite-control-failure route, add a both-teams-to-score scoreline to the top two or explain why that route is too weak to promote.
+5. Do not infer regulation-time separation from prior extra-time fatigue or nominal squad depth alone. Tie a minutes 75-90 adjustment to confirmed starter workload, rest, climate, ball-retention problems, substitution quality, or observed late-match decline; otherwise apply it mainly to extra time and advancement.
 
 - Weaker sides often rationally defend deep and target extra time/penalties.
 - Raise 90-minute draw into the 28%-35% range when the underdog has credible low-block discipline, strong goalkeeper, set-piece threat, or penalty edge.
@@ -174,10 +212,13 @@ Two strong teams:
 
 - Compare official technical profiles before leaning on reputation: attacking output, distribution/progression, defensive concessions, discipline risk, goalkeeping, movement, physical load, possession control, xG, shots on target, shot quality, and set-piece volume.
 - Separate midfield control from chance creation.
+- Count central progression and defensive roles after confirmed lineups; do not rely on nominal 4-2-3-1 or 4-3-3 labels when one attacking midfielder creates a three-versus-two overload.
+- Check whether either elite winger can repeatedly isolate a fullback and whether the nearest center-back or holding midfielder can cover without opening the middle.
 - Compare goalkeeper and center-back error risk.
 - Check whether either coach is likely to rotate or protect players.
 - Decide whether the game is likely to be low-event control or high-event tradeoffs before choosing likely scorelines.
 - If one team has control without clear chance volume and the other has limited sustained outlets, test 1-0 before 1-1; if both teams defend well and a key finisher is absent or limited, test 0-0 before assuming both teams score.
+- When one team has both defensive suppression and a repeatable scoring route, test its 1-0 and 2-0 paths before assigning most of the opponent's attacking downgrade to a draw.
 - Treat extra time and penalties separately from 90-minute superiority.
 
 Group-stage finale:
@@ -238,6 +279,8 @@ Search hygiene:
 - Treating one blowout as full proof of team level.
 - Using stale injury or lineup information.
 - Making confirmed-lineup-dependent claims before lineups are available.
+- Keeping pre-lineup probabilities unchanged after confirmed roles reveal a material midfield overload or wide isolation.
+- Recognizing a repeatable winning route in the evidence ledger or failure path but allocating it mainly to the draw bucket.
 - Giving exact-looking probabilities when evidence supports only ranges.
 - Pick, probability leader, scoreline order, scoring table, rationale, key assumption, or failure path contradict each other.
 - Equal or near-equal total scores paired with confident one-sided language without an override.
@@ -266,6 +309,7 @@ For saved predictions in `pred/`:
 - If the favorite wins by more than expected after a close first half, audit late-game acceleration, bench impact, fatigue, and underdog outlet quality; adjust future draw pricing downward when similar evidence shows the underdog cannot survive sustained second-half pressure.
 - If a favorite loses to an underdog with a world-class finisher or clear supply line, audit whether the model treated that outlet as draw risk rather than win risk, and whether the favorite's starter availability was overstated.
 - If a home or slight favorite loses heavily after conceding first, audit whether the model underpriced pressing dependency, fullback exposure, chasing-state volatility, and the opponent's high-ceiling spine.
+- If the forecast explicitly named the actual winning route but the corresponding team remained underweighted, audit evidence-to-probability translation: confirmed central structure, wide isolation, zero-goal probability, clean-sheet scorelines, and any reputation-based coaching override.
 - If total goals are materially higher than forecast, audit underweighted cards, penalties, home pressure, forced chasing, high-conversion attackers, and punch-underdog transition paths; adjust scoreline tails before changing the primary win/draw/loss model, and move 2-4 points into underdog win when the route was treated as draw-only risk.
 - Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
 - Convert repeated errors into explicit future probability adjustments.
@@ -281,4 +325,6 @@ Before saving or answering:
 - If the headline says a team is more likely to win in 90 minutes, that team's probability should be clearly above the draw and scoreline order should not imply draw-first unless the wording explicitly says the match is near toss-up.
 - If a team has the highest probability, the headline names it as slight/clear/strong favorite according to the band.
 - Sources support schedule, availability, standings, and key claims.
+- Confirmed lineups, if available, have passed the repricing gate; if unavailable, the probability ranges are conditional and identify the material structural swing.
+- Defensive suppression is allocated coherently between draws and clean-sheet wins, and the likely scorelines reflect that allocation.
 - Re-read the saved markdown after writing; run read-only subagent consistency review when available.
