@@ -5,11 +5,24 @@ Use this reference for deeper or high-stakes match calls. `SKILL.md` is the oper
 ## Contents
 
 - Evidence ledger and priority
+- Forecast lifecycle
 - Confirmed-lineup repricing gate
 - Scoring, FIFA statistics, and probability calibration
-- Knockout calibration and matchup checklists
+- Knockout calibration, game-state transitions, and matchup checklists
 - Polymarket usage and red flags
-- Backtesting and final consistency check
+- Final consistency check
+
+## Forecast Lifecycle
+
+Treat every saved prediction as a timestamped information snapshot:
+
+1. Save `赛前初版` when confirmed lineups are unavailable. Record creation time, evidence cutoff, lineup status, and whether a later review is needed.
+2. Do not promise an autonomous lineup update. If no later user request or scheduled run occurs, the initial snapshot remains the delivered and scored forecast.
+3. When a later pre-kickoff review uses confirmed lineups, preserve the earlier headline, probability ranges, and likely scorelines under `## 预测版本记录`; then update the current headline and mark it `确认首发终版`.
+4. Do not create a final label without running the confirmed-lineup repricing gate. If lineups are still uncertain, retain initial status and conditional ranges.
+5. Freeze `pred/` at kickoff. Never revise a forecast with live or post-match information.
+
+Use the latest pre-kickoff version as the primary backtest forecast. Earlier versions measure information value and forecast evolution, not the final pick. See `references/backtesting.md` for review rules.
 
 ## Evidence Ledger
 
@@ -172,6 +185,24 @@ Run this gate before finalizing every knockout headline, probability table, and 
 4. If both leading scorelines give the underdog zero goals while the ledger identifies a repeatable counter, set-piece, creator-finisher, or favorite-control-failure route, add a both-teams-to-score scoreline to the top two or explain why that route is too weak to promote.
 5. Do not infer regulation-time separation from prior extra-time fatigue or nominal squad depth alone. Tie a minutes 75-90 adjustment to confirmed starter workload, rest, climate, ball-retention problems, substitution quality, or observed late-match decline; otherwise apply it mainly to extra time and advancement.
 
+### Game-State Transition Matrix
+
+For every knockout match and contest between strong teams, write a compact matrix before final probabilities:
+
+| State | Required questions | Probability use |
+|---|---|---|
+| 0-0 | Who controls territory and chance quality? Who can retain an outlet under pressure? | Set the draw baseline and first-goal direction. |
+| Team A leads | Does A keep counter threat or replace outlets with defenders? Can B add creators, runners, aerial targets, or set-piece pressure? | Split A hold, draw comeback, and B turnaround paths. |
+| Team B leads | Apply the same test without assuming symmetry. | Split B hold, draw comeback, and A turnaround paths. |
+| Minutes 60-75 | Which likely substitutions change roles inside regulation time? Is the leading side protecting or seeking separation? | Move only supported late-regulation probability. |
+| Minutes 75-90 | Who sustains pressure, ball retention, recovery running, and box occupation? | Distinguish late win separation from extra-time depth. |
+
+- Base substitution expectations on repeated coach behavior, available bench roles, current workload, and matchup needs. Do not invent exact substitutions.
+- Treat removal of the leading side's main outlet as a comeback and turnaround input when it invites sustained pressure; do not move the whole effect into the draw bucket.
+- Treat an opponent's attacking substitutions as 90-minute evidence only when they are likely to arrive early enough and improve a concrete route. Keep generic depth after 90 minutes in advancement context.
+- Test both comeback-to-draw and comeback-to-win. Elite creators, multiple box targets, set pieces, or repeated control failures can make a two-goal late swing non-negligible.
+- Avoid double counting with the confirmed-lineup gate or regulation-time separation gate. The matrix explains game-state direction; it does not create an independent arithmetic bonus.
+
 - Weaker sides often rationally defend deep and target extra time/penalties.
 - Raise 90-minute draw into the 28%-35% range when the underdog has credible low-block discipline, strong goalkeeper, set-piece threat, or penalty edge.
 - For disciplined low-block underdogs with strong shot-stopping and a real counter/set-piece outlet, start from a 24%-30% draw baseline even against clear favorites. Move to 28%-35% when the underdog has recently drawn strong opponents or the favorite lacks confirmed full-strength attackers.
@@ -291,34 +322,13 @@ Search hygiene:
 - Describing an elite underdog scorer/creator route in the failure path without moving underdog win probability.
 - Using a 2-3 goal market mode to justify near-zero 4+ goal tail in a volatile knockout setting.
 
-## Backtesting
-
-For saved predictions in `pred/`:
-
-- Treat `pred/` as an immutable prediction ledger during backtesting. Read files from it, but never edit, rewrite, append to, rename, or create review artifacts in that directory.
-- Deliver backtest findings in the conversation unless the user explicitly requests a separate output file outside `pred/`.
-- Count only completed matches.
-- Verify final score from official/match-center sources and read at least one match report or live text.
-- Track primary 90-minute outcome, likely-score hit, and calibration quality separately.
-- A 53% favorite losing is not automatically a bad forecast; repeated misses from the same hidden factor are the problem.
-- If advancement is correct but the 90-minute result is a draw, check whether the original wording overpromoted the advancement edge into the 90-minute headline.
-- If a likely scoreline hits but the headline pick misses, mark it as a headline/probability calibration error. The model saw the match shape, but the final wording and probability leader did not respect it.
-- If a strong favorite only advances after a 90-minute draw, audit underweighted low-block discipline, goalkeeper shot-stopping, and repeatable underdog outlets before blaming variance.
-- If the favorite wins by fewer goals than expected, audit whether territorial control was mistaken for chance volume; adjust scoreline ordering toward 1-0/2-0 when the underdog can block the box but not threaten often.
-- If the model overuses both-teams-to-score, audit whether it relied on squad reputation rather than repeatable chance creation, and whether defensive records, missing finishers, poor shot quality, or cautious knockout incentives supported 0-0/1-0 instead.
-- If the favorite wins by more than expected after a close first half, audit late-game acceleration, bench impact, fatigue, and underdog outlet quality; adjust future draw pricing downward when similar evidence shows the underdog cannot survive sustained second-half pressure.
-- If a favorite loses to an underdog with a world-class finisher or clear supply line, audit whether the model treated that outlet as draw risk rather than win risk, and whether the favorite's starter availability was overstated.
-- If a home or slight favorite loses heavily after conceding first, audit whether the model underpriced pressing dependency, fullback exposure, chasing-state volatility, and the opponent's high-ceiling spine.
-- If the forecast explicitly named the actual winning route but the corresponding team remained underweighted, audit evidence-to-probability translation: confirmed central structure, wide isolation, zero-goal probability, clean-sheet scorelines, and any reputation-based coaching override.
-- If total goals are materially higher than forecast, audit underweighted cards, penalties, home pressure, forced chasing, high-conversion attackers, and punch-underdog transition paths; adjust scoreline tails before changing the primary win/draw/loss model, and move 2-4 points into underdog win when the route was treated as draw-only risk.
-- Attribute misses to the most likely weighting error: incentives, lineup uncertainty, tactical matchup, finishing variance, set pieces, red cards, stale evidence, or knockout draw/penalty path.
-- Convert repeated errors into explicit future probability adjustments.
-
 ## Final Consistency Check
 
 Before saving or answering:
 
 - Date/time are absolute and Beijing time is clear where needed.
+- Forecast creation time, evidence cutoff, forecast status, lineup status, review need, and version history are present and coherent.
+- A confirmed-lineup final preserves the earlier snapshot; an initial forecast does not imply an autonomous future update.
 - Prediction says whether it is 90-minute result or advancement.
 - Probability ranges, scorelines, scoring table, evidence ledger, rationale, key assumption, and failure path tell the same story.
 - If the headline says "draw lean", draw is top or co-top.
@@ -326,5 +336,6 @@ Before saving or answering:
 - If a team has the highest probability, the headline names it as slight/clear/strong favorite according to the band.
 - Sources support schedule, availability, standings, and key claims.
 - Confirmed lineups, if available, have passed the repricing gate; if unavailable, the probability ranges are conditional and identify the material structural swing.
+- Knockout and strong-team forecasts include the game-state transition matrix, and late-regulation effects are not confused with extra-time depth.
 - Defensive suppression is allocated coherently between draws and clean-sheet wins, and the likely scorelines reflect that allocation.
 - Re-read the saved markdown after writing; run read-only subagent consistency review when available.

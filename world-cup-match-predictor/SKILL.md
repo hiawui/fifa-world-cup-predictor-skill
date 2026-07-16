@@ -9,11 +9,11 @@ description: Evidence-based workflow for predicting, saving, or backtesting 2026
 
 Use this skill to produce disciplined 2026 FIFA World Cup final-tournament match predictions and reviews. Treat predictions as probabilistic judgments, not certainties, and ground every major claim in current, cited evidence.
 
-For deeper, high-stakes, knockout, or backtesting work, read `references/prediction-framework.md` after this file. `SKILL.md` is the operating workflow; the reference file is the detailed calibration layer.
+For deeper, high-stakes, or knockout forecasts, read `references/prediction-framework.md` after this file. For completed-match reviews, read `references/backtesting.md` instead. Load both only when a review also changes the forecasting framework.
 
 ## Skill Maintenance
 
-When optimizing this skill, review both `SKILL.md` and `references/prediction-framework.md` in the same pass. Keep probability bands, scoring rubrics, evidence workflow, persistence requirements, and consistency checks aligned before syncing the installed copy.
+When optimizing this skill, review `SKILL.md`, both reference files, and prediction validation behavior in the same pass. Keep probability bands, scoring rubrics, evidence workflow, persistence requirements, and consistency checks aligned before syncing the installed copy.
 
 ## Core Workflow
 
@@ -22,6 +22,9 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Verify competition, venue, kickoff, group/round, standings context, and match state.
    - Use this skill only for the 2026 FIFA World Cup final tournament.
    - For saved predictions in `pred/`, parse the file first; for backtests, verify the final result before scoring.
+   - Record forecast creation time, evidence cutoff time, forecast status, lineup status, and whether a later lineup review is needed.
+   - Use `赛前初版` when confirmed lineups are unavailable and `确认首发终版` only after the confirmed-lineup repricing gate. A `赛前初版` remains the delivered forecast if no later user request or scheduled update occurs; do not imply that the agent will revisit it autonomously.
+   - If a later pre-kickoff review creates a `确认首发终版`, preserve the earlier headline probabilities and scorelines under `## 预测版本记录` before replacing the current headline. Freeze the file once the match kicks off.
 
 2. Gather current evidence.
    - Browse before predicting. Do not rely on memory for squads, injuries, standings, lineups, odds, results, or form.
@@ -42,6 +45,7 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Use official team statistics as a performance layer, not a replacement for matchup analysis. Weight Attacking, Distribution, Defending, Discipline, Goalkeeping, Movement, and Physical by match relevance.
    - Interpret volume and quality separately. Shot/corner volume can create draw or upset paths, but shots on target, xG, inside-box attempts, possession control, defensive concessions, discipline, goalkeeping, running profile, and physical load determine how strong those paths are.
    - For tactics, check pressing resistance, central-midfield numbers and roles, fullback-winger isolation, set pieces, transition defense, aerial duels, pace, goalkeeper reliability, control after taking the lead, and whether either side must chase the game.
+   - For knockout matches and contests between strong teams, build a game-state transition matrix covering 0-0, Team A leading, Team B leading, minutes 60-75, and minutes 75-90. Identify outlet retention, protection tendencies, likely substitution roles, and which state moves probability from draw into either team's win bucket.
    - For favorites, test whether control can become separation: early chance creation, field tilt, opponent ball retention, bench impact, and whether an early goal forces the underdog out of its preferred plan.
    - For underdogs, separate resistance from punch. A team with only blocks and saves mostly raises draw risk; a team with repeatable creator-runner-finisher, set-piece, or counter outlets raises win probability and multi-goal tails, especially against favorites with recent control or defensive-management problems.
    - For host or home-region matches, treat crowd, altitude/climate, referee tempo, cards, penalties, and forced chasing as probability drivers when supported by evidence.
@@ -89,24 +93,20 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
    - Final output may lead with the pick, but the reasoning must be evidence-first.
    - State the key assumption and main failure path.
    - Save every analyzed match to `pred/YYYY-MM-DD_HHMM_TeamA-vs-TeamB.md`, using kickoff time in Beijing time and ASCII-safe team slugs.
-   - Saved files must include pick, probability ranges, likely scorelines, scoring table, evidence ledger, FIFA technical-stat weighting when relevant, lineup uncertainty, key assumption, failure path, and source links.
+   - Saved files must include lifecycle metadata, version history, pick, probability ranges, likely scorelines, scoring table, evidence ledger, FIFA technical-stat weighting when relevant, lineup uncertainty, key assumption, failure path, and source links.
+   - For knockout matches and contests between strong teams, also include `## 比赛状态转换` with the required state matrix and its probability implications.
    - For Chinese users, write saved markdown in Chinese.
    - After writing, review the saved file for consistency across headline pick, probability leader, scorelines, scoring table, rationale, key assumption, failure path, and sources.
+   - Run `uv run <skill-dir>/scripts/validate_prediction.py --strict <saved-file>` for every newly created or pre-kickoff-updated prediction. Fix every error before responding. Use the non-strict mode only to audit legacy files created before lifecycle metadata existed.
    - Include a narrative-probability check: "If I only read the evidence ledger and rationale, what probability band would I infer?" Fix any material conflict before responding.
    - Use read-only subagents for this review when available; otherwise review manually.
 
 8. Backtest saved predictions when requested.
+   - Read and follow `references/backtesting.md`.
    - Treat every file under `pred/` as an immutable pre-match record during review. Never edit, rewrite, append to, rename, or otherwise modify a `pred/` file while backtesting or reviewing it.
    - Return the review in the conversation. Write it elsewhere only when the user explicitly requests a separate output file, and never place that review file under `pred/`.
-   - Compare primary 90-minute pick, predicted probability, likely scorelines, and actual result.
-   - Track primary outcome hit, likely-score hit, and calibration quality separately.
-   - Do not score live or unfinished matches.
-   - Explain misses through evidence gaps or weighting errors, not hindsight certainty.
-   - If advancement was right but the 90-minute result missed, audit whether advancement strength leaked into the regulation-time headline.
-   - If a likely scoreline hit but the headline pick missed, classify it as a headline/probability calibration error rather than a full model miss.
-   - If the review finds that the forecast named the actual winning route but left it mainly in prose or the draw bucket, classify it as an evidence-to-probability weighting error and specify how the win and clean-sheet ranges should change in comparable future matchups.
-   - If the result class was right but goal total was wrong, audit overused both-teams-to-score, underweighted 0-0 conditions, or underweighted punch-underdog/high-event volatility.
-   - Convert repeated misses into explicit future probability adjustments, especially for incentives, lineup uncertainty, draw pricing, overreliance on reputation, underdog outlets, and knockout draw/penalty paths.
+   - Score the latest pre-kickoff version as the primary forecast. Compare earlier snapshots separately when version history exists.
+   - Distinguish outcome hit, likely-score hit, probability quality, and evidence-process quality. Do not call a plausible-probability outcome a calibration failure merely because it occurred.
 
 ## Evidence Rules
 
@@ -128,10 +128,21 @@ When optimizing this skill, review both `SKILL.md` and `references/prediction-fr
 For Chinese users, answer in Chinese unless asked otherwise. Saved markdown files for Chinese predictions must also be written in Chinese. Use this compact structure:
 
 ```text
+预测生成时间：[YYYY-MM-DD HH:MM BJT]
+信息截止时间：[YYYY-MM-DD HH:MM BJT]
+预测状态：[赛前初版 / 确认首发终版]
+首发状态：[未公布 / 可靠预计 / 已确认]
+是否需要临场复核：[是 / 否]
+
+## 预测版本记录
+
+- [时间] [赛前初版 / 确认首发终版]：[90分钟概率、主要比分和变更理由；初版也记录当前快照]
+
 我判断：[球队] 更可能赢，倾向比分 [x-y] 或 [x-y]。
 90 分钟粗略概率：[A胜] xx%-xx%，平局 xx%-xx%，[B胜] xx%-xx%。
 
-评分对比：
+## 评分
+
 1. 阵容实力：[A队] x/30，[B队] x/30
 2. 近期/赛事表现：[A队] x/20，[B队] x/20
 3. 战术对位：[A队] x/25，[B队] x/25
@@ -139,26 +150,50 @@ For Chinese users, answer in Chinese unless asked otherwise. Saved markdown file
 5. 赛程/战意/环境：[A队] x/10，[B队] x/10
 综合评分：[A队] xx/100，[B队] xx/100
 
-证据账本：
+## 证据账本
+
 - 推高[A队]胜率：[要点]
 - 推高平局概率：[要点]
 - 推高[B队]胜率：[要点]
 - 只影响晋级而非90分钟：[要点，如加时/点球深度]
 
-首发强度/轮换不确定性：
+## 首发强度/轮换不确定性
+
 - [A队]：[主力程度描述]，对胜率影响 [方向和幅度]
 - [B队]：[同上]
 - 信息确定度：[已确认首发 / 可靠报道 / 纯推测]
 
-依据：
+## 比赛状态转换（淘汰赛或强强对话）
+
+- 0-0：[控制、机会与换人倾向]
+- A队领先：[守领先能力、反击出口、对手追分结构]
+- B队领先：[同上]
+- 60-75分钟：[预计换人角色及概率方向]
+- 75-90分钟：[常规时间分离路线，不混入加时因素]
+
+## 依据
+
 1. [最强证据]
 2. [第二证据]
 3. [主力/替补/教练证据]
 4. [战术/赛程/对位证据]
 5. [爆冷或平局风险]
 
-关键假设：[最影响预测的一条前提]
-结论：[一句话总结 pick，并说明最大不确定性。]
+## 关键假设
+
+[最影响预测的一条前提]
+
+## 预测失效路径
+
+- [最可能令主预测失效的具体比分与比赛路线]
+
+## 来源
+
+- [支持赛程、首发、数据和关键判断的链接]
+
+## 结论
+
+[一句话总结 pick，并说明最大不确定性。]
 ```
 
 For knockout matches, optionally append supplementary context after the main block:
